@@ -1,15 +1,384 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <title>Kho Thẻ - ForgetMeNot</title>
-    <link rel="stylesheet" href="../css/khothe.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="preconnect" href="../css/dashboard.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kho Thẻ - ForgetMeNot</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/dashboard.css">
+
+  <style>
+    /* ── BASE ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg-gray); color: var(--text-dark); }
+    a    { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; }
+
+    /* ── LAYOUT ── */
+    .app-container { display: flex; min-height: 100vh; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: 240px; min-width: 240px;
+      background: var(--white);
+      border-right: 1px solid var(--border-color);
+      display: flex; flex-direction: column;
+      padding: 28px 0;
+      position: sticky; top: 0; height: 100vh;
+    }
+    .sidebar-header { padding: 0 24px 32px; }
+    .logo-text { font-size: 17px; font-weight: 800; color: var(--primary-purple); letter-spacing: .4px; }
+
+    .sidebar-menu { flex: 1; display: flex; flex-direction: column; gap: 2px; padding: 0 12px; }
+    .menu-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 14px; border-radius: 10px;
+      font-size: 14px; font-weight: 500; color: var(--text-gray);
+      transition: background .15s, color .15s;
+    }
+    .menu-item i { width: 18px; text-align: center; font-size: 15px; }
+    .menu-item:hover  { background: #f1f5f9; color: var(--text-dark); }
+    .menu-item.active { background: #ede9fe; color: var(--primary-purple); font-weight: 600; }
+
+    .sidebar-footer {
+      display: flex; align-items: center; gap: 12px;
+      padding: 20px 24px 0; border-top: 1px solid var(--border-color); margin-top: auto;
+    }
+    .user-avatar {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: #ede9fe; display: flex; align-items: center; justify-content: center;
+      color: var(--primary-purple); font-size: 15px; flex-shrink: 0;
+    }
+    .user-name { font-size: 13px; font-weight: 600; }
+    .user-id   { font-size: 11px; color: var(--text-gray); }
+
+    /* ── MAIN ── */
+    .main-content { flex: 1; padding: 36px 36px 56px; overflow-y: auto; }
+
+    /* ── PAGE HEADER ── */
+    .page-top {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      padding-bottom: 20px;
+      border-bottom: 1.5px solid var(--border-color);
+      margin-bottom: 28px;
+    }
+    .page-top-left h1 { font-size: 26px; font-weight: 800; }
+    .page-top-left p  { font-size: 13px; color: var(--text-gray); margin-top: 3px; }
+
+    .page-top-actions { display: flex; gap: 10px; align-items: center; }
+
+    .btn-ai {
+      display: flex; align-items: center; gap: 7px;
+      padding: 9px 18px; border-radius: 8px;
+      font-size: 13px; font-weight: 600;
+      border: 1.5px solid var(--border-color);
+      background: var(--white);
+      color: var(--text-dark);
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .btn-ai:hover { border-color: #a5b4fc; box-shadow: 0 0 0 3px rgba(99,102,241,.08); }
+    .btn-ai i { color: #818cf8; font-size: 13px; }
+
+    .btn-new {
+      display: flex; align-items: center; gap: 7px;
+      padding: 9px 18px; border-radius: 8px;
+      font-size: 13px; font-weight: 600;
+      border: none; background: var(--text-dark); color: var(--white);
+      transition: opacity .15s;
+    }
+    .btn-new:hover { opacity: .85; }
+
+    /* ── TOOLBAR ── */
+    .toolbar {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 14px; margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    /* Filter tabs */
+    .filter-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+    .tab-btn {
+      padding: 7px 16px; border-radius: 999px;
+      font-size: 13px; font-weight: 500;
+      border: 1.5px solid var(--border-color);
+      background: var(--white); color: var(--text-gray);
+      transition: all .15s; cursor: pointer;
+    }
+    .tab-btn:hover  { border-color: #a5b4fc; color: var(--primary-purple); }
+    .tab-btn.active {
+      background: var(--primary-purple); color: var(--white);
+      border-color: var(--primary-purple);
+    }
+
+    /* Search + sort */
+    .toolbar-right { display: flex; gap: 10px; align-items: center; }
+
+    .search-box {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 14px; border-radius: 8px;
+      border: 1.5px solid var(--border-color); background: var(--white);
+      transition: border-color .15s;
+    }
+    .search-box:focus-within { border-color: var(--primary-purple); }
+    .search-box i { color: var(--text-gray); font-size: 13px; }
+    .search-box input {
+      border: none; outline: none; font-size: 13px;
+      background: transparent; width: 180px; color: var(--text-dark);
+    }
+    .search-box input::placeholder { color: #94a3b8; }
+
+    .sort-select {
+      padding: 8px 12px; border-radius: 8px;
+      border: 1.5px solid var(--border-color);
+      font-size: 13px; color: var(--text-gray);
+      background: var(--white); outline: none;
+      cursor: pointer; transition: border-color .15s;
+    }
+    .sort-select:hover { border-color: #a5b4fc; }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      display: none; flex-direction: column; align-items: center;
+      justify-content: center; padding: 80px 24px;
+      text-align: center; color: var(--text-gray);
+    }
+    .empty-state i { font-size: 48px; margin-bottom: 16px; opacity: .35; }
+    .empty-state h3 { font-size: 16px; font-weight: 600; color: var(--text-dark); margin-bottom: 6px; }
+    .empty-state p  { font-size: 13px; }
+
+    /* ── CARD GRID ── */
+    .deck-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    /* ── DECK CARD ── */
+    .deck-card {
+      background: var(--white);
+      border: 1.5px solid var(--border-color);
+      border-radius: 14px;
+      padding: 22px 22px 18px;
+      display: flex; flex-direction: column; gap: 12px;
+      transition: box-shadow .2s, border-color .2s;
+      position: relative;
+    }
+    .deck-card:hover {
+      box-shadow: 0 6px 24px rgba(0,0,0,.07);
+      border-color: #c7d2fe;
+    }
+
+    /* Card header */
+    .deck-card-header {
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;
+    }
+    .deck-card-title-row { display: flex; align-items: center; gap: 12px; }
+    .deck-icon {
+      width: 42px; height: 42px; border-radius: 10px;
+      background: #f1f5f9; display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .deck-title-block { display: flex; flex-direction: column; gap: 3px; }
+    .deck-title { font-size: 16px; font-weight: 700; }
+    .deck-count { font-size: 12px; color: var(--text-gray); }
+
+    .deck-card-actions { display: flex; align-items: center; gap: 4px; }
+    .action-icon-btn {
+      width: 30px; height: 30px; border-radius: 7px;
+      border: none; background: transparent;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-gray); font-size: 14px;
+      transition: background .15s, color .15s;
+    }
+    .action-icon-btn:hover { background: #f1f5f9; color: var(--text-dark); }
+    .action-icon-btn.starred { color: #f59e0b; }
+
+    /* Description */
+    .deck-desc {
+      font-size: 13px; color: var(--text-gray); line-height: 1.5;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+
+    /* Exam badge */
+    .exam-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 5px 12px; border-radius: 7px;
+      font-size: 12px; font-weight: 600;
+      border: 1.5px solid var(--border-color);
+      background: var(--white); color: var(--text-dark);
+      width: fit-content;
+    }
+    .exam-badge i { font-size: 11px; color: var(--text-gray); }
+    .exam-badge .days-left { font-weight: 700; }
+    .exam-badge .days-left.urgent { color: #f59e0b; }
+    .exam-badge .days-left.safe   { color: #22c55e; }
+    .exam-badge .days-left.none   { color: var(--text-gray); }
+
+    .urgent-badge {
+      background: #0f172a; color: #fff;
+      border-color: #0f172a;
+    }
+    .urgent-badge i { color: #fbbf24; }
+    .urgent-badge .days-left { color: #fbbf24 !important; }
+
+    /* Last studied */
+    .deck-last { font-size: 12px; color: var(--text-gray); }
+
+    /* Card footer buttons */
+    .deck-card-footer { display: flex; gap: 8px; margin-top: 4px; }
+
+    .btn-review {
+      flex: 1; display: flex; align-items: center; justify-content: center; gap: 7px;
+      padding: 9px 14px; border-radius: 8px;
+      font-size: 13px; font-weight: 600;
+      border: 1.5px solid var(--border-color);
+      background: var(--white); color: var(--text-dark);
+      transition: background .15s, border-color .15s;
+    }
+    .btn-review:hover { background: #f8fafc; border-color: #a5b4fc; }
+    .btn-review i { font-size: 12px; }
+
+    .btn-fast {
+      flex: 1; display: flex; align-items: center; justify-content: center; gap: 7px;
+      padding: 9px 14px; border-radius: 8px;
+      font-size: 13px; font-weight: 600;
+      border: none; background: #0f172a; color: var(--white);
+      transition: opacity .15s;
+    }
+    .btn-fast:hover { opacity: .85; }
+
+    .btn-arrow {
+      width: 38px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 8px;
+      border: 1.5px solid var(--border-color);
+      background: var(--white); color: var(--text-dark);
+      font-size: 13px;
+      transition: background .15s, border-color .15s;
+    }
+    .btn-arrow:hover { background: #f8fafc; border-color: #a5b4fc; }
+
+    /* ── DROPDOWN MENU ── */
+    .dropdown-wrapper { position: relative; }
+    .dropdown-menu {
+      display: none;
+      position: absolute; top: 36px; right: 0;
+      background: var(--white); border: 1.5px solid var(--border-color);
+      border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,.1);
+      min-width: 160px; z-index: 100;
+      padding: 6px;
+    }
+    .dropdown-menu.open { display: block; }
+    .dropdown-item {
+      display: flex; align-items: center; gap: 9px;
+      padding: 9px 12px; border-radius: 7px;
+      font-size: 13px; font-weight: 500; color: var(--text-dark);
+      cursor: pointer; transition: background .12s;
+      border: none; background: none; width: 100%; text-align: left;
+    }
+    .dropdown-item:hover { background: #f1f5f9; }
+    .dropdown-item.danger { color: #ef4444; }
+    .dropdown-item.danger:hover { background: #fef2f2; }
+    .dropdown-item i { width: 16px; text-align: center; color: var(--text-gray); }
+    .dropdown-item.danger i { color: #ef4444; }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.4); z-index: 500;
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: var(--white); border-radius: 16px;
+      padding: 32px; width: 100%; max-width: 460px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.15);
+      position: relative;
+    }
+    .modal-box h2 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+    .modal-box p  { font-size: 13px; color: var(--text-gray); margin-bottom: 24px; }
+    .modal-close {
+      position: absolute; top: 16px; right: 16px;
+      width: 30px; height: 30px; border-radius: 7px;
+      border: none; background: #f1f5f9; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; color: var(--text-gray);
+    }
+    .modal-close:hover { background: #e2e8f0; }
+
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 7px; }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%; padding: 10px 14px;
+      border: 1.5px solid var(--border-color); border-radius: 8px;
+      font-size: 13px; outline: none; font-family: inherit;
+      transition: border-color .15s;
+      background: var(--white); color: var(--text-dark);
+      resize: vertical;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--primary-purple); }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    .modal-footer { display: flex; gap: 10px; justify-content: flex-end; margin-top: 8px; }
+    .btn-cancel {
+      padding: 10px 20px; border-radius: 8px;
+      border: 1.5px solid var(--border-color); background: var(--white);
+      font-size: 13px; font-weight: 600; color: var(--text-dark);
+      cursor: pointer; transition: background .15s;
+    }
+    .btn-cancel:hover { background: #f8fafc; }
+    .btn-submit {
+      padding: 10px 20px; border-radius: 8px;
+      border: none; background: var(--primary-purple); color: var(--white);
+      font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: opacity .15s;
+    }
+    .btn-submit:hover { opacity: .88; }
+    .btn-submit-danger { background: #ef4444; }
+    .btn-submit-danger:hover { opacity: .88; }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: 28px; right: 28px;
+      background: #0f172a; color: #fff;
+      padding: 12px 20px; border-radius: 10px;
+      font-size: 13px; font-weight: 500;
+      display: flex; align-items: center; gap: 9px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.2);
+      opacity: 0; transform: translateY(12px);
+      transition: opacity .25s, transform .25s;
+      pointer-events: none; z-index: 9999;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast i { color: #a5b4fc; font-size: 14px; }
+
+    /* ── HELP BTN ── */
+    .help-btn {
+      position: fixed; bottom: 28px; right: 28px;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: #475569; color: #fff;
+      border: none; font-size: 18px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,.18);
+      transition: background .15s;
+    }
+    .help-btn:hover { background: #334155; }
+  </style>
 </head>
 <body>
-    <div class="app-container">
+
+<div class="app-container">
+
+  <!-- ═══════════ SIDEBAR ═══════════ -->
+  <div class="app-container">
+        
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <div class="logo">
@@ -52,26 +421,536 @@
                     <i class="fa-solid fa-user"></i>
                 </div>
                 <div class="user-info">
-                    <p class="user-name">Người Dùng</p>
-                    <p class="user-id">ID: 27112007</p>
+                    <p class="user-name" id="userName"></p>
+<p class="user-id" id="userId"></p>
+                
                 </div>
             </div>
         </aside>
 
-        <main class="main-content">
-            
-            <header class="content-header">
-                <h1>Kho Thẻ của tôi</h1>
-                <div class="page-actions">
-                    <button id="btn-ai-generate">AI Generate</button>
-                    <button id="btn-tao-bo-the">+ Tạo bộ thẻ</button>
-                </div>
-            </header>
-            
-            <div id="deck-grid" class="deck-grid">
-                </div>
-        </main>
+  <!-- ═══════════ MAIN ═══════════ -->
+  <main class="main-content">
+
+    <!-- Page header -->
+    <div class="page-top">
+      <div class="page-top-left">
+        <h1>Kho Thẻ</h1>
+        <p id="deckCountLabel">4 bộ thẻ</p>
+      </div>
+      <div class="page-top-actions">
+        <button class="btn-ai" onclick="openModal('aiModal')">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> AI Generate
+        </button>
+        <button class="btn-new" onclick="openModal('addModal')">
+          <i class="fa-solid fa-plus"></i> Tạo bộ thẻ
+        </button>
+      </div>
     </div>
-    <script type="module" src="khothe.js"></script>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <!-- Filter tabs -->
+      <div class="filter-tabs" id="filterTabs">
+        <button class="tab-btn active" data-filter="all">Tất cả</button>
+        <button class="tab-btn" data-filter="urgent">Sắp thi</button>
+        <button class="tab-btn" data-filter="starred">Yêu thích</button>
+        <button class="tab-btn" data-filter="nodate">Chưa đặt ngày</button>
+      </div>
+      <!-- Search + sort -->
+      <div class="toolbar-right">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="searchInput" placeholder="Tìm bộ thẻ..." />
+        </div>
+        <select class="sort-select" id="sortSelect">
+          <option value="default">Mặc định</option>
+          <option value="name">Theo tên</option>
+          <option value="cards">Số thẻ</option>
+          <option value="exam">Ngày thi</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Card grid -->
+    <div class="deck-grid" id="deckGrid"></div>
+
+    <!-- Empty state -->
+    <div class="empty-state" id="emptyState">
+      <i class="fa-solid fa-box-open"></i>
+      <h3>Không tìm thấy bộ thẻ nào</h3>
+      <p>Thử thay đổi bộ lọc hoặc tạo bộ thẻ mới.</p>
+    </div>
+
+  </main>
+</div>
+
+<!-- ═══════════ HELP BUTTON ═══════════ -->
+<button class="help-btn" title="Trợ giúp">?</button>
+
+<!-- ═══════════ TOAST ═══════════ -->
+<div class="toast" id="toast"><i class="fa-solid fa-check-circle"></i><span id="toastMsg"></span></div>
+
+<!-- ═══════════ ADD / EDIT MODAL ═══════════ -->
+<div class="modal-overlay" id="addModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('addModal')"><i class="fa-solid fa-xmark"></i></button>
+    <h2 id="modalTitle">Tạo bộ thẻ mới</h2>
+    <p id="modalSubtitle">Điền thông tin bên dưới để tạo bộ thẻ.</p>
+    <div class="form-group">
+      <label>Tên bộ thẻ <span style="color:#ef4444">*</span></label>
+      <input type="text" id="formName" placeholder="Vd: Giải Tích 1" />
+    </div>
+    <div class="form-group">
+      <label>Mô tả</label>
+      <textarea id="formDesc" rows="2" placeholder="Vd: Giới hạn, đạo hàm, tích phân..."></textarea>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Số thẻ</label>
+        <input type="number" id="formCards" placeholder="0" min="0" />
+      </div>
+      <div class="form-group">
+        <label>Ngày thi</label>
+        <input type="date" id="formExam" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Biểu tượng</label>
+      <select id="formIcon">
+        <option value="📖">📖 Sách</option>
+        <option value="🔢">🔢 Toán</option>
+        <option value="🧪">🧪 Khoa học</option>
+        <option value="🌍">🌍 Địa lý</option>
+        <option value="💻">💻 Lập trình</option>
+        <option value="🎵">🎵 Âm nhạc</option>
+        <option value="📐">📐 Kỹ thuật</option>
+        <option value="🏛️">🏛️ Lịch sử</option>
+        <option value="🗣️">🗣️ Ngoại ngữ</option>
+        <option value="📊">📊 Kinh tế</option>
+      </select>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal('addModal')">Huỷ</button>
+      <button class="btn-submit" id="modalSubmitBtn" onclick="submitForm()">Tạo bộ thẻ</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ DELETE CONFIRM MODAL ═══════════ -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('deleteModal')"><i class="fa-solid fa-xmark"></i></button>
+    <h2>Xoá bộ thẻ?</h2>
+    <p>Hành động này không thể hoàn tác. Tất cả thẻ trong bộ <strong id="deleteTarget"></strong> sẽ bị xoá vĩnh viễn.</p>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal('deleteModal')">Huỷ</button>
+      <button class="btn-submit btn-submit-danger" onclick="confirmDelete()">Xoá bộ thẻ</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ AI MODAL ═══════════ -->
+<div class="modal-overlay" id="aiModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('aiModal')"><i class="fa-solid fa-xmark"></i></button>
+    <h2>✨ AI Generate</h2>
+    <p>Mô tả chủ đề bạn muốn học và AI sẽ tạo bộ thẻ cho bạn.</p>
+    <div class="form-group">
+      <label>Chủ đề / Môn học</label>
+      <input type="text" id="aiTopic" placeholder="Vd: Phương trình vi phân, IELTS Writing..." />
+    </div>
+    <div class="form-group">
+      <label>Số thẻ muốn tạo</label>
+      <select id="aiCount">
+        <option value="10">10 thẻ</option>
+        <option value="20" selected>20 thẻ</option>
+        <option value="30">30 thẻ</option>
+        <option value="50">50 thẻ</option>
+      </select>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal('aiModal')">Huỷ</button>
+      <button class="btn-submit" onclick="aiGenerate()">
+        <i class="fa-solid fa-wand-magic-sparkles"></i> Tạo ngay
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ SCRIPT ═══════════ -->
+<script>
+  /* ──────────── DATA ──────────── */
+  let decks = [
+    {
+      id: 1,
+      name: 'Giải Tích 1',
+      cards: 120,
+      desc: 'Các khái niệm cơ bản về giới hạn, đạo hàm, tích phân',
+      exam: '2026-06-15',
+      lastStudied: 'Hôm nay',
+      starred: true,
+      icon: '📖'
+    },
+    {
+      id: 2,
+      name: 'Vật Lý Đại Cương',
+      cards: 85,
+      desc: 'Cơ học, điện từ học, quang học, nhiệt học',
+      exam: '2026-06-20',
+      lastStudied: '2 ngày trước',
+      starred: false,
+      icon: '🧪'
+    },
+    {
+      id: 3,
+      name: 'Tiếng Anh - TOEIC',
+      cards: 300,
+      desc: 'Từ vựng và ngữ pháp luyện thi TOEIC 750+',
+      exam: null,
+      lastStudied: 'Hôm qua',
+      starred: true,
+      icon: '🗣️'
+    },
+    {
+      id: 4,
+      name: 'Lập Trình C++',
+      cards: 64,
+      desc: 'Cú pháp, con trỏ, OOP, STL',
+      exam: '2026-06-25',
+      lastStudied: '3 ngày trước',
+      starred: false,
+      icon: '💻'
+    }
+  ];
+
+  let nextId = 5;
+  let activeFilter = 'all';
+  let searchQuery = '';
+  let sortMode = 'default';
+  let editingId = null;
+  let deletingId = null;
+
+  /* ──────────── UTILS ──────────── */
+  const TODAY = new Date('2026-06-11');
+
+  function daysUntil(dateStr) {
+    if (!dateStr) return null;
+    const d = new Date(dateStr);
+    return Math.ceil((d - TODAY) / 86400000);
+  }
+
+  function formatExam(dateStr) {
+    if (!dateStr) return null;
+    const d = new Date(dateStr);
+    return d.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    document.getElementById('toastMsg').textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  /* ──────────── FILTER / SORT ──────────── */
+  function getVisible() {
+    let list = [...decks];
+
+    // filter
+    if (activeFilter === 'urgent') {
+      list = list.filter(d => {
+        const days = daysUntil(d.exam);
+        return days !== null && days <= 10;
+      });
+    } else if (activeFilter === 'starred') {
+      list = list.filter(d => d.starred);
+    } else if (activeFilter === 'nodate') {
+      list = list.filter(d => !d.exam);
+    }
+
+    // search
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      list = list.filter(d =>
+        d.name.toLowerCase().includes(q) || d.desc.toLowerCase().includes(q)
+      );
+    }
+
+    // sort
+    if (sortMode === 'name') {
+      list.sort((a, b) => a.name.localeCompare(b.name, 'vi'));
+    } else if (sortMode === 'cards') {
+      list.sort((a, b) => b.cards - a.cards);
+    } else if (sortMode === 'exam') {
+      list.sort((a, b) => {
+        if (!a.exam) return 1;
+        if (!b.exam) return -1;
+        return new Date(a.exam) - new Date(b.exam);
+      });
+    }
+
+    return list;
+  }
+
+  /* ──────────── RENDER ──────────── */
+  function render() {
+    const grid  = document.getElementById('deckGrid');
+    const empty = document.getElementById('emptyState');
+    const label = document.getElementById('deckCountLabel');
+    const list  = getVisible();
+
+    label.textContent = `${decks.length} bộ thẻ`;
+
+    if (list.length === 0) {
+      grid.innerHTML = '';
+      empty.style.display = 'flex';
+      return;
+    }
+    empty.style.display = 'none';
+    grid.innerHTML = list.map(deck => buildCard(deck)).join('');
+  }
+
+  function buildCard(deck) {
+    const days = daysUntil(deck.exam);
+    const isUrgent = days !== null && days <= 10;
+
+    let examHTML = '';
+    if (deck.exam) {
+      const dateStr  = formatExam(deck.exam);
+      const urgentCls = isUrgent ? 'urgent-badge' : '';
+      const daysCls   = isUrgent ? 'urgent' : 'safe';
+      const daysLabel = `(${isUrgent ? '⚠️ ' : ''}${days} ngày)`;
+      examHTML = `
+        <span class="exam-badge ${urgentCls}">
+          <i class="fa-solid fa-calendar"></i>
+          Thi: ${dateStr}
+          <span class="days-left ${daysCls}">${daysLabel}</span>
+        </span>`;
+    } else {
+      examHTML = `
+        <span class="exam-badge">
+          <i class="fa-solid fa-calendar"></i>
+          <span class="days-left none">Chưa đặt ngày thi</span>
+        </span>`;
+    }
+
+    const fastBtn = isUrgent
+      ? `<button class="btn-fast" onclick="showToast('Đang mở học cấp tốc…')">🔥 Cấp Tốc</button>`
+      : '';
+
+    const starCls = deck.starred ? 'starred' : '';
+
+    return `
+      <div class="deck-card" id="card-${deck.id}">
+        <div class="deck-card-header">
+          <div class="deck-card-title-row">
+            <div class="deck-icon">${deck.icon}</div>
+            <div class="deck-title-block">
+              <span class="deck-title">${deck.name}</span>
+              <span class="deck-count">${deck.cards} thẻ</span>
+            </div>
+          </div>
+          <div class="deck-card-actions">
+            <button class="action-icon-btn ${starCls}" onclick="toggleStar(${deck.id})" title="Yêu thích">
+              <i class="fa-${deck.starred ? 'solid' : 'regular'} fa-star"></i>
+            </button>
+            <div class="dropdown-wrapper">
+              <button class="action-icon-btn" onclick="toggleDropdown(${deck.id})" title="Tuỳ chọn">
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+              </button>
+              <div class="dropdown-menu" id="dd-${deck.id}">
+                <button class="dropdown-item" onclick="openEdit(${deck.id})">
+                  <i class="fa-solid fa-pen"></i> Chỉnh sửa
+                </button>
+                <button class="dropdown-item" onclick="duplicateDeck(${deck.id})">
+                  <i class="fa-solid fa-copy"></i> Nhân bản
+                </button>
+                <button class="dropdown-item danger" onclick="openDelete(${deck.id})">
+                  <i class="fa-solid fa-trash"></i> Xoá bộ thẻ
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="deck-desc">${deck.desc}</p>
+
+        ${examHTML}
+
+        <p class="deck-last">Học lần cuối: ${deck.lastStudied}</p>
+
+        <div class="deck-card-footer">
+          <button class="btn-review" onclick="showToast('Đang mở ôn tập: ${deck.name}…')">
+            <i class="fa-solid fa-book-open"></i> Ôn Tập
+          </button>
+          ${fastBtn}
+          <button class="btn-arrow" onclick="showToast('Đang mở bộ thẻ: ${deck.name}…')">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>`;
+  }
+
+  /* ──────────── INTERACTIONS ──────────── */
+  function toggleStar(id) {
+    const d = decks.find(x => x.id === id);
+    if (!d) return;
+    d.starred = !d.starred;
+    render();
+    showToast(d.starred ? `Đã thêm "${d.name}" vào yêu thích` : `Đã bỏ yêu thích "${d.name}"`);
+  }
+
+  function toggleDropdown(id) {
+    document.querySelectorAll('.dropdown-menu').forEach(m => {
+      if (m.id !== `dd-${id}`) m.classList.remove('open');
+    });
+    document.getElementById(`dd-${id}`)?.classList.toggle('open');
+  }
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.dropdown-wrapper')) {
+      document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('open'));
+    }
+  });
+
+  function duplicateDeck(id) {
+    const d = decks.find(x => x.id === id);
+    if (!d) return;
+    const copy = { ...d, id: nextId++, name: d.name + ' (Bản sao)', starred: false };
+    decks.push(copy);
+    render();
+    showToast(`Đã nhân bản "${d.name}"`);
+  }
+
+  /* ──────────── FILTER TABS ──────────── */
+  document.getElementById('filterTabs').addEventListener('click', (e) => {
+    const btn = e.target.closest('.tab-btn');
+    if (!btn) return;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.filter;
+    render();
+  });
+
+  /* ──────────── SEARCH ──────────── */
+  document.getElementById('searchInput').addEventListener('input', (e) => {
+    searchQuery = e.target.value.trim();
+    render();
+  });
+
+  /* ──────────── SORT ──────────── */
+  document.getElementById('sortSelect').addEventListener('change', (e) => {
+    sortMode = e.target.value;
+    render();
+  });
+
+  /* ──────────── MODALS ──────────── */
+  function openModal(id) {
+    document.getElementById(id).classList.add('open');
+  }
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('open');
+  }
+  document.querySelectorAll('.modal-overlay').forEach(m => {
+    m.addEventListener('click', (e) => {
+      if (e.target === m) m.classList.remove('open');
+    });
+  });
+
+  /* ADD */
+  function submitForm() {
+    const name  = document.getElementById('formName').value.trim();
+    const desc  = document.getElementById('formDesc').value.trim();
+    const cards = parseInt(document.getElementById('formCards').value) || 0;
+    const exam  = document.getElementById('formExam').value || null;
+    const icon  = document.getElementById('formIcon').value;
+
+    if (!name) {
+      document.getElementById('formName').focus();
+      return;
+    }
+
+    if (editingId !== null) {
+      const d = decks.find(x => x.id === editingId);
+      if (d) {
+        Object.assign(d, { name, desc, cards, exam, icon });
+        showToast(`Đã cập nhật "${name}"`);
+      }
+      editingId = null;
+    } else {
+      decks.push({ id: nextId++, name, cards, desc, exam, lastStudied: 'Vừa tạo', starred: false, icon });
+      showToast(`Đã tạo bộ thẻ "${name}"`);
+    }
+
+    closeModal('addModal');
+    resetForm();
+    render();
+  }
+
+  function resetForm() {
+    ['formName','formDesc','formCards','formExam'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('formIcon').value = '📖';
+    document.getElementById('modalTitle').textContent = 'Tạo bộ thẻ mới';
+    document.getElementById('modalSubtitle').textContent = 'Điền thông tin bên dưới để tạo bộ thẻ.';
+    document.getElementById('modalSubmitBtn').textContent = 'Tạo bộ thẻ';
+    editingId = null;
+  }
+
+  /* EDIT */
+  function openEdit(id) {
+    const d = decks.find(x => x.id === id);
+    if (!d) return;
+    editingId = id;
+    document.getElementById('formName').value  = d.name;
+    document.getElementById('formDesc').value  = d.desc;
+    document.getElementById('formCards').value = d.cards;
+    document.getElementById('formExam').value  = d.exam || '';
+    document.getElementById('formIcon').value  = d.icon;
+    document.getElementById('modalTitle').textContent    = 'Chỉnh sửa bộ thẻ';
+    document.getElementById('modalSubtitle').textContent = 'Cập nhật thông tin bộ thẻ.';
+    document.getElementById('modalSubmitBtn').textContent = 'Lưu thay đổi';
+    openModal('addModal');
+  }
+
+  /* DELETE */
+  function openDelete(id) {
+    const d = decks.find(x => x.id === id);
+    if (!d) return;
+    deletingId = id;
+    document.getElementById('deleteTarget').textContent = `"${d.name}"`;
+    openModal('deleteModal');
+  }
+  function confirmDelete() {
+    const d = decks.find(x => x.id === deletingId);
+    decks = decks.filter(x => x.id !== deletingId);
+    closeModal('deleteModal');
+    render();
+    showToast(`Đã xoá "${d?.name}"`);
+    deletingId = null;
+  }
+
+  /* AI GENERATE */
+  function aiGenerate() {
+    const topic = document.getElementById('aiTopic').value.trim();
+    const count = document.getElementById('aiCount').value;
+    if (!topic) { document.getElementById('aiTopic').focus(); return; }
+    closeModal('aiModal');
+    decks.push({
+      id: nextId++, name: topic,
+      cards: parseInt(count),
+      desc: `Bộ thẻ được tạo tự động bởi AI cho chủ đề: ${topic}`,
+      exam: null, lastStudied: 'Chưa học', starred: false, icon: '✨'
+    });
+    render();
+    showToast(`AI đã tạo bộ thẻ "${topic}" với ${count} thẻ`);
+    document.getElementById('aiTopic').value = '';
+  }
+
+  /* ──────────── INIT ──────────── */
+  render();
+</script>
+<script src="../js/khothe.js"></script>
 </body>
 </html>

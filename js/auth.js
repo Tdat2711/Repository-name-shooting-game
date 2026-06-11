@@ -16,15 +16,18 @@ function register() {
     }
 
     const user = {
-        name,
-        email,
-        password
+        id: "FMN" + Date.now().toString().slice(-6),
+        name: name,
+        email: email,
+        password: password,
+        streak: 0,
+        createdAt: new Date().toLocaleDateString("vi-VN")
     };
 
     localStorage.setItem(email, JSON.stringify(user));
 
     alert("Đăng ký thành công!");
-    window.location.href = "login.html";
+    window.location.href = "/html/login.html";
 }
 
 // Đăng nhập

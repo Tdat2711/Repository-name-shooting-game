@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ForgetMeNot - Ứng dụng học flashcard thông minh với AI, giúp bạn học hiệu quả hơn, nhớ lâu hơn.">
+    <meta name="keywords" content="flashcard, học tập, ôn thi, AI, ForgetMeNot">
+    <title>ForgetMeNot - Ứng dụng Flashcard Thông Minh | Học Hiệu Quả Hơn</title>
+    <link rel="stylesheet" href="landing-style.css">
+    <link rel="stylesheet" href="landing-custom.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- ============ NAVBAR ============ -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="navbar-wrapper">
+                <div class="logo-section">
+                    <i class="fas fa-brain"></i>
+                    <span class="logo-text">ForgetMeNot</span>
+                </div>
+                
+                <button class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#features" class="nav-link">Tính Năng</a></li>
+                    <li><a href="#benefits" class="nav-link">Lợi Ích</a></li>
+                    <li><a href="#pricing" class="nav-link">Giá Cả</a></li>
+                    <li><a href="#testimonials" class="nav-link">Đánh Giá</a></li>
+                </ul>
+
+                <div id="authButtons" class="nav-auth-buttons">
+
+    <button
+        class="btn btn-secondary"
+        onclick="window.location.href='/html/login.html'">
+        Đăng Nhập
+    </button>
+
+    <button
+        class="btn btn-primary"
+        onclick="window.location.href='/html/register.html'">
+        Đăng Ký
+    </button>
+
+</div>
+
+                <div id="userMenu" class="user-menu">
+                    <div class="user-profile">
+                        <div class="user-avatar"><i class="fas fa-user"></i></div>
+                        <div class="user-info-small">
+                            <div class="user-name-small" id="userName">Người Dùng</div>
+                            <div class="user-email-small" id="userEmail">user@example.com</div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-sm" onclick="window.location.href='#studyDashboard'">
+                        Vào Học
+                    </button>
+                    <button class="btn btn-outline btn-sm" id="logoutBtn">Đăng Xuất</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============ AUTH MODAL ============ -->
+    <div id="authModal">
+        <div class="auth-modal-content">
+            <div class="auth-modal-header">
+                <h2 id="authModalTitle">Đăng Nhập</h2>
+                <button class="close-modal" id="closeLoginModal">&times;</button>
+            </div>
+
+            <!-- LOGIN FORM -->
+            <div id="loginContent">
+                <form class="auth-form" id="loginForm">
+                    <div class="auth-form-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" placeholder="your@email.com" required>
+                    </div>
+                    <div class="auth-form-group">
+                        <label for="loginPassword">Mật Khẩu</label>
+                        <input type="password" id="loginPassword" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="auth-form-submit">Đăng Nhập</button>
+                    <div class="auth-form-footer">
+                        <p>Chưa có tài khoản? <a id="switchToSignup">Đăng ký ngay</a></p>
+                    </div>
+                </form>
+                <div style="margin-top: var(--spacing-lg); padding-top: var(--spacing-lg); border-top: 1px solid var(--border-color); text-align: center; color: var(--text-secondary); font-size: var(--font-size-sm);">
+                    <p>Demo: user@example.com / 123456</p>
+                </div>
+            </div>
+
+            <!-- SIGNUP FORM -->
+            <div id="signupContent">
+                <form class="auth-form" id="signupForm">
+                    <div class="auth-form-group">
+                        <label for="signupFullName">Tên Đầy Đủ</label>
+                        <input type="text" id="signupFullName" placeholder="Nguyễn Văn A" required>
+                    </div>
+                    <div class="auth-form-group">
+                        <label for="signupEmail">Email</label>
+                        <input type="email" id="signupEmail" placeholder="your@email.com" required>
+                    </div>
+                    <div class="auth-form-group">
+                        <label for="signupPassword">Mật Khẩu (ít nhất 6 ký tự)</label>
+                        <input type="password" id="signupPassword" placeholder="••••••••" required>
+                    </div>
+                    <div class="auth-form-group">
+                        <label for="signupPasswordConfirm">Xác Nhận Mật Khẩu</label>
+                        <input type="password" id="signupPasswordConfirm" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="auth-form-submit">Đăng Ký</button>
+                    <div class="auth-form-footer">
+                        <p>Đã có tài khoản? <a id="switchToLogin">Đăng nhập</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ LANDING PAGE ============ -->
+    <div id="landingPage">
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="highlight">Học Không Bao Giờ</span> Dễ Dàng Đến Thế
+                </h1>
+                <p class="hero-subtitle">
+                    ForgetMeNot - Ứng dụng flashcard AI thông minh giúp bạn học hiệu quả hơn, nhớ lâu hơn, 
+                    và đạt điểm cao hơn trong mọi kỳ thi.
+                </p>
+                
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">50K+</span>
+                        <span class="stat-label">Người dùng</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">4.9★</span>
+                        <span class="stat-label">Đánh giá</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">10M+</span>
+                        <span class="stat-label">Flashcards</span>
+                    </div>
+                </div>
+
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" id="ctaBtn" onclick="auth?.openSignupModal()">Dùng Thử Miễn Phí</button>
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-play-circle"></i> Xem Demo
+                    </button>
+                </div>
+
+                <div class="hero-image-container">
+                    <div class="mock-phone">
+                        <div class="mock-phone-content">
+                            <img src="data:image/svg+xml,%3Csvg width='280' height='580' viewBox='0 0 280 580' xmlns='http://www.w3.org/2000/svg'%3E%3Crect fill='%23f8f9fa' width='280' height='580' rx='30'/%3E%3Crect fill='%234f46e5' y='0' width='280' height='80' rx='30,30,0,0'/%3E%3Ctext x='140' y='45' font-size='18' font-weight='bold' fill='white' text-anchor='middle'%3EFlashcard%3C/text%3E%3Crect fill='%23fff' x='20' y='110' width='240' height='140' rx='10'/%3E%3Crect fill='%23e5e7eb' x='30' y='120' width='220' height='10' rx='5'/%3E%3Crect fill='%23e5e7eb' x='30' y='140' width='150' height='8' rx='4'/%3E%3Crect fill='%234f46e5' x='20' y='270' width='240' height='50' rx='10'/%3E%3Ctext x='140' y='300' font-size='16' font-weight='bold' fill='white' text-anchor='middle'%3EBỏ qua%3C/text%3E%3C/svg%3E" alt="App interface">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ FEATURES SECTION ============ -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Tính Năng Nổi Bật</h2>
+                <p>Công cụ hoàn hảo cho mọi người học, từ học sinh đến sinh viên, từ những kẻ tò mò đến chuyên gia.</p>
+            </div>
+
+            <!-- Feature Tabs -->
+            <div class="feature-tabs">
+                <div class="tabs-menu">
+                    <button class="tab-btn active" data-tab="tab-1">
+                        <i class="fas fa-wand-magic-sparkles"></i> AI Thông Minh
+                    </button>
+                    <button class="tab-btn" data-tab="tab-2">
+                        <i class="fas fa-chart-line"></i> Theo Dõi Tiến Độ
+                    </button>
+                    <button class="tab-btn" data-tab="tab-3">
+                        <i class="fas fa-users"></i> Cộng Đồng
+                    </button>
+                </div>
+
+                <div class="tabs-content">
+                    <div class="tab-pane active" id="tab-1">
+                        <div class="tab-image">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3>AI Tạo Flashcard Tự Động</h3>
+                        <p>Chỉ cần dán bài giảng, AI sẽ tự động tạo ra những flashcard chất lượng cao, tập trung vào những điểm quan trọng nhất.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Trích xuất từ khóa tự động</li>
+                            <li><i class="fas fa-check"></i> Tạo câu hỏi trắc nghiệm</li>
+                            <li><i class="fas fa-check"></i> Hỗ trợ đa ngôn ngữ</li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-pane" id="tab-2">
+                        <div class="tab-image">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <h3>Thống Kê Chi Tiết</h3>
+                        <p>Theo dõi tiến độ học tập với các biểu đồ chi tiết, xác định điểm yếu và tập trung vào những lĩnh vực cần cải thiện.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Tỷ lệ học thành công</li>
+                            <li><i class="fas fa-check"></i> Thời gian học tập</li>
+                            <li><i class="fas fa-check"></i> Những chủ đề khó</li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-pane" id="tab-3">
+                        <div class="tab-image">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>Cộng Đồng Học Tập</h3>
+                        <p>Kết nối với hàng nghìn người học khác, chia sẻ tài liệu, thảo luận và cùng nhau tiến bộ nhanh hơn.</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Chia sẻ bộ thẻ công khai</li>
+                            <li><i class="fas fa-check"></i> Nhóm học tập</li>
+                            <li><i class="fas fa-check"></i> Thách thức bạn bè</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature Grid -->
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Responsive 100%</h3>
+                    <p>Học mọi lúc, mọi nơi trên điện thoại, máy tính bảng hay máy tính để bàn.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync"></i>
+                    </div>
+                    <h3>Đồng Bộ Hóa</h3>
+                    <p>Dữ liệu của bạn được đồng bộ hóa tự động trên tất cả các thiết bị.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Bảo Mật</h3>
+                    <p>Dữ liệu của bạn được mã hóa và bảo vệ với tiêu chuẩn bảo mật quốc tế.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Spaced Repetition</h3>
+                    <p>Công nghệ lặp cách quãng khoa học giúp bạn nhớ thông tin lâu hơn.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <h3>Chế Độ Tối</h3>
+                    <p>Bảo vệ mắt của bạn với chế độ tối tuyệt đẹp và thoải mái để sử dụng.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3>Đa Ngôn Ngữ</h3>
+                    <p>Hỗ trợ tiếng Việt, Anh, Trung, Nhật và nhiều ngôn ngữ khác.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ BENEFITS SECTION ============ -->
+    <section class="benefits" id="benefits">
+        <div class="container">
+            <div class="section-header">
+                <h2>Tại Sao Chọn ForgetMeNot?</h2>
+                <p>Hàng vạn học sinh và sinh viên đã sử dụng ForgetMeNot để cải thiện kết quả học tập của họ.</p>
+            </div>
+
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <div class="benefit-number">1</div>
+                    <h3>Tiết Kiệm Thời Gian</h3>
+                    <p>Học hiệu quả trong 20 phút mỗi ngày thay vì 2 giờ với cách truyền thống.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-number">2</div>
+                    <h3>Nhớ Lâu Hơn</h3>
+                    <p>Nhật ký lặp lại cách quãng đã được chứng minh khoa học giúp bạn nhớ 90% thông tin sau 1 tháng.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-number">3</div>
+                    <h3>Tăng Động Lực</h3>
+                    <p>Hệ thống streak, badge và leaderboard giúp bạn giữ động lực học tập hàng ngày.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-number">4</div>
+                    <h3>Giảm Căng Thẳng</h3>
+                    <p>Không cần nhớ hết mọi thứ - AI sẽ giúp bạn ôn tập những phần khó nhất.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ PRICING SECTION ============ -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2>Gói Giá Linh Hoạt</h2>
+                <p>Chọn gói phù hợp với nhu cầu của bạn. Bạn luôn có thể nâng cấp hoặc hạ cấp bất kỳ lúc nào.</p>
+            </div>
+
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Miễn Phí</h3>
+                        <p class="pricing-price"><span class="currency">₫</span>0<span class="period">/tháng</span></p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Tạo tối đa 3 bộ thẻ</li>
+                        <li><i class="fas fa-check"></i> Tối đa 100 flashcard</li>
+                        <li><i class="fas fa-check"></i> Truy cập cộng đồng</li>
+                        <li class="disabled"><i class="fas fa-times"></i> AI tạo flashcard</li>
+                        <li class="disabled"><i class="fas fa-times"></i> Thống kê chi tiết</li>
+                        <li class="disabled"><i class="fas fa-times"></i> Hỗ trợ ưu tiên</li>
+                    </ul>
+                    <button class="btn btn-outline">Bắt Đầu Miễn Phí</button>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">Phổ Biến Nhất</div>
+                    <div class="pricing-header">
+                        <h3>Pro</h3>
+                        <p class="pricing-price"><span class="currency">₫</span>49<span class="period">,000/tháng</span></p>
+                        <p class="pricing-savings">hoặc ₫99,000/năm (tiết kiệm 40%)</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Flashcard không giới hạn</li>
+                        <li><i class="fas fa-check"></i> AI tạo flashcard</li>
+                        <li><i class="fas fa-check"></i> Thống kê chi tiết</li>
+                        <li><i class="fas fa-check"></i> Bộ sưu tập độc quyền</li>
+                        <li><i class="fas fa-check"></i> Xóa quảng cáo</li>
+                        <li class="disabled"><i class="fas fa-times"></i> Hỗ trợ ưu tiên 24/7</li>
+                    </ul>
+                    <button class="btn btn-primary">Nâng Cấp Ngay</button>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Pro+</h3>
+                        <p class="pricing-price"><span class="currency">₫</span>99<span class="period">,000/tháng</span></p>
+                        <p class="pricing-savings">hoặc ₫199,000/năm (tiết kiệm 40%)</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Tất cả trong gói Pro</li>
+                        <li><i class="fas fa-check"></i> Hỗ trợ ưu tiên 24/7</li>
+                        <li><i class="fas fa-check"></i> Tạo nhóm học</li>
+                        <li><i class="fas fa-check"></i> Xuất/Nhập tùy chỉnh</li>
+                        <li><i class="fas fa-check"></i> API access</li>
+                        <li><i class="fas fa-check"></i> Tuỳ chỉnh nâng cao</li>
+                    </ul>
+                    <button class="btn btn-outline">Chọn Gói Này</button>
+                </div>
+            </div>
+
+            <div class="pricing-note">
+                <p><strong>💡 Mẹo:</strong> Đã có tài khoản? Tất cả người dùng mới sẽ nhận được 7 ngày dùng thử Pro miễn phí!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ TESTIMONIALS SECTION ============ -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>Người Dùng Nói Gì Về Chúng Tôi</h2>
+                <p>Hãy lắng nghe những câu chuyện thành công từ các người dùng ForgetMeNot</p>
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"ForgetMeNot đã thay đổi cuộc sống học tập của tôi hoàn toàn. Tôi đã cải thiện điểm từ 6.5 lên 8.5 chỉ trong 3 tháng!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="author-info">
+                            <p class="author-name">Nguyễn Thị A</p>
+                            <p class="author-title">Sinh viên Đại học Bách Khoa</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Ứng dụng rất đơn giản nhưng vô cùng hiệu quả. AI tạo flashcard tiết kiệm cho tôi hàng giờ mỗi tuần. Tuyệt vời!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="author-info">
+                            <p class="author-name">Trần Minh B</p>
+                            <p class="author-title">Giáo viên tiếng Anh</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Tôi đã sử dụng ForgetMeNot trong 6 tháng qua và nó đã giúp tôi vượt qua kỳ thi IELTS với điểm 7.5. Rất hài lòng!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="author-info">
+                            <p class="author-name">Phạm Quốc C</p>
+                            <p class="author-title">Lập trình viên & Tự học IELTS</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ CONTACT/CTA SECTION ============ -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-wrapper">
+                <div class="contact-content">
+                    <h2>Sẵn Sàng Bắt Đầu Hành Trình Học Tập Của Bạn?</h2>
+                    <p>Đừng bỏ lỡ cơ hội này. Tham gia ngay hôm nay và nhận 7 ngày dùng thử Pro miễn phí!</p>
+                </div>
+
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <input 
+                            type="text" 
+                            id="fullName" 
+                            placeholder="Tên của bạn" 
+                            class="form-input"
+                            required
+                        >
+                        <span class="error-message"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input 
+                            type="email" 
+                            id="email" 
+                            placeholder="Email của bạn" 
+                            class="form-input"
+                            required
+                        >
+                        <span class="error-message"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input 
+                            type="tel" 
+                            id="phone" 
+                            placeholder="Số điện thoại (tùy chọn)" 
+                            class="form-input"
+                        >
+                        <span class="error-message"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-large">
+                        Dùng Thử 7 Ngày Miễn Phí
+                    </button>
+
+                    <p class="form-note">Không cần thẻ tín dụng. Hủy bất kỳ lúc nào.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+    </div>
+
+    <!-- ============ STUDY DASHBOARD ============ -->
+    <section id="studyDashboard">
+        <div class="container">
+            <div class="dashboard-header">
+                <div class="dashboard-welcome">
+                    <div>
+                        <h2>Xin chào, <span id="userName">Người Dùng</span>! 👋</h2>
+                        <p>Hôm nay bạn học được bao nhiêu?</p>
+                    </div>
+                </div>
+                <button class="dashboard-logout" id="logoutBtn">Đăng Xuất</button>
+            </div>
+
+            <div class="dashboard-stats">
+                <div class="stat-box">
+                    <div class="stat-box-value" id="totalCards">0</div>
+                    <div class="stat-box-label">Tổng Flashcards</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-box-value" id="cardsLearned">0</div>
+                    <div class="stat-box-label">Đã Học</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-box-value" id="streak">0</div>
+                    <div class="stat-box-label">Streak (Ngày)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-box-value" id="level">1</div>
+                    <div class="stat-box-label">Level</div>
+                </div>
+            </div>
+
+            <div id="dashboardContainer">
+                <div class="dashboard-section-title">
+                    <span>Bộ Thẻ Của Tôi</span>
+                    <button class="btn btn-sm btn-primary" onclick="studyApp.openCreateSetModal()">
+                        + Tạo Bộ Thẻ
+                    </button>
+                </div>
+                <div id="cardSetsContainer"></div>
+            </div>
+
+            <div id="studyMode">
+                <div class="study-mode-header">
+                    <div class="study-mode-title">
+                        <h2 id="studySetName">Bộ Thẻ</h2>
+                        <p class="card-progress" id="cardProgress">1/10</p>
+                    </div>
+                    <button class="back-btn" onclick="studyApp.backToDashboard()">← Quay Lại</button>
+                </div>
+
+                <div class="study-container">
+                    <div class="flashcard">
+                        <div class="flashcard-front" id="cardFront" onclick="flipCard()">
+                            <div class="flashcard-side flashcard-question" id="cardQuestion">
+                                Click để xem câu hỏi
+                            </div>
+                            <div class="flashcard-side flashcard-answer" id="cardAnswer">
+                                Click để xem đáp án
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="study-controls">
+                        <button class="study-btn" onclick="studyApp.prevCard()">← Thẻ Trước</button>
+                        <button class="study-btn study-btn-next" onclick="studyApp.nextCard()">
+                            Thẻ Tiếp Theo →
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ CREATE SET MODAL ============ -->
+    <div id="createSetModal">
+        <div class="create-set-modal-content">
+            <div class="auth-modal-header">
+                <h2>Tạo Bộ Thẻ Mới</h2>
+                <button class="close-modal" onclick="studyApp.closeCreateSetModal()">&times;</button>
+            </div>
+            <form class="auth-form" id="createSetForm">
+                <div class="auth-form-group">
+                    <label for="setName">Tên Bộ Thẻ</label>
+                    <input type="text" id="setName" placeholder="Vd: Từ Vựng Tiếng Anh" required>
+                </div>
+                <div class="auth-form-group">
+                    <label for="setDescription">Mô Tả</label>
+                    <textarea id="setDescription" placeholder="Mô tả về bộ thẻ này" style="padding: 12px 16px; border: 2px solid var(--border-color); border-radius: 8px; font-family: var(--font-sans); min-height: 100px;"></textarea>
+                </div>
+                <button type="submit" class="auth-form-submit">Tạo Bộ Thẻ</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>ForgetMeNot</h4>
+                    <p>Ứng dụng flashcard AI thông minh giúp bạn học hiệu quả hơn.</p>
+                    <div class="social-links">
+                        <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Sản Phẩm</h4>
+                    <ul>
+                        <li><a href="#">Tính Năng</a></li>
+                        <li><a href="#">Giá Cả</a></li>
+                        <li><a href="#">Ứng Dụng</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Công Ty</h4>
+                    <ul>
+                        <li><a href="#">Về Chúng Tôi</a></li>
+                        <li><a href="#">Liên Hệ</a></li>
+                        <li><a href="#">Tuyển Dụng</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Pháp Lý</h4>
+                    <ul>
+                        <li><a href="#">Điều Khoản Sử Dụng</a></li>
+                        <li><a href="#">Chính Sách Bảo Mật</a></li>
+                        <li><a href="#">Chính Sách Cookie</a></li>
+                        <li><a href="#">Liên Hệ</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 ForgetMeNot. Tất cả quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="landing-script.js"></script>
+    <script src="login-system.js"></script>
+</body>
+</html>
