@@ -369,100 +369,143 @@
 
 
 
+/* --- BANNER XUẤT SẮC / STREAK BANNER --- */
 .streak-banner {
   background: linear-gradient(135deg, #f97316, #ea580c);
-  color: var(--white);
+  color: #ffffff; /* Thay var(--white) nếu chưa định nghĩa */
   padding: 24px;
   border-radius: 16px;
   margin-bottom: 24px;
-  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.2);
+  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.25);
+  text-align: center; /* Giúp căn giữa nội dung banner nếu cần */
 }
 
 .streak-banner h4 {
-  font-size: 16px;
+  font-size: 18px; /* Tăng nhẹ để nổi bật tiêu đề */
   font-weight: 700;
   margin-bottom: 8px;
+  letter-spacing: -0.02em;
 }
 
 .streak-banner p {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.5;
   color: #ffedd5;
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 }
 
 .btn-streak-check {
   width: 100%;
   border: none;
-  background-color: var(--white);
+  background-color: #ffffff;
   color: #ea580c;
   padding: 12px;
-  border-radius: 8px;
+  border-radius: 12px; /* Bo góc mềm mại hơn hợp xu hướng */
   font-weight: 700;
-  font-size: 13px;
+  font-size: 14px;
   cursor: pointer;
-  transition: transform 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.btn-streak-check:hover {
+  background-color: #fff7ed; /* Hiệu ứng sáng lên nhẹ khi hover */
+  transform: translateY(-1px);
 }
 
 .btn-streak-check:active {
   transform: scale(0.98);
 }
 
-
+/* --- BẢNG LỊCH / CALENDAR CARD --- */
 .calendar-card {
-  background-color: var(--white);
-  border: 1px solid var(--border-color);
+  background-color: #ffffff;
+  border: 1px solid #f1f5f9;
   border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  padding: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
 }
 
 .calendar-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
-  margin-bottom: 15px;
-  color: var(--text-dark);
+  margin-bottom: 20px;
+  color: #1e293b;
 }
 
 .calendar-header i {
   cursor: pointer;
-  color: var(--text-gray);
-  padding: 5px;
+  color: #94a3b8;
+  padding: 6px;
+  border-radius: 50%;
+  transition: background 0.2s;
 }
 
+.calendar-header i:hover {
+  background-color: #f1f5f9;
+  color: #1e293b;
+}
+
+/* Cấu trúc Grid chuẩn 7 cột */
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 8px;
-  text-align: center;
+  row-gap: 12px; /* Khoảng cách giữa các hàng thoáng hơn */
+  column-gap: 8px;
+  justify-items: center;
 }
 
-
-.calendar-grid span {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-dark);
-  
-
-  display: inline-flex;
+/* Style chung cho từng ô ngày */
+.calendar-day {
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  margin: 0 auto;
-  border-radius: 50%; 
+  width: 38px;  /* Tăng nhẹ kích thước để không gian chữ thoải mái */
+  height: 38px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #334155;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
 }
 
-
-.calendar-grid .disabled {
-  color: #cbd5e1 !important;
+/* Hiệu ứng hover cho ngày thường */
+.calendar-day:hover:not(.checked-day):not(.disabled) {
+  background-color: #f1f5f9;
+  color: #0f172a;
 }
 
-.calendar-grid .active {
+/* Ngày bị mờ (tháng trước/sau) */
+.calendar-day.disabled {
+  color: #cbd5e1;
+  cursor: default;
+}
+
+/* Ngày ĐÃ ĐIỂM DANH (Màu xanh ngọc như trong ảnh) */
+.checked-day {
   background-color: #10b981 !important;
-  color: var(--white) !important; 
+  color: #ffffff !important;
   font-weight: 700;
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
+}
+
+/* Ngày HIỆN TẠI (Hôm nay) - Đồng bộ viền cam theo chủ đề app */
+.today {
+  border: 2px solid #ea580c;
+  font-weight: 700;
+}
+
+/* Ô trống làm đầy grid */
+.calendar-empty {
+  width: 38px;
+  height: 38px;
 }

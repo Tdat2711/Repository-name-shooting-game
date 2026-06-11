@@ -2,33 +2,28 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Đăng ký - ForgetMeNot</title>
+    <title>Đăng ký</title>
     <link rel="stylesheet" href="../css/login.css">
 </head>
-<body class="login-body">
-    <div class="login-container">
-        <div class="login-box">
-            <div class="login-logo">ForgetMeNot</div>
-            <h2 class="login-title">Tạo tài khoản</h2>
-            <form id="loginForm" class="login-form">
-                <div class="input-group">
-                    <label>Email</label>
-                    <input type="email" required placeholder="name@example.com">
-                </div>
-                <div class="input-group">
-                    <label>Mật khẩu</label>
-                    <input type="password" required placeholder="••••••••">
-                </div>
-                <div class="input-group">
-                    <label>Nhập lại mật khẩu</label>
-                    <input type="password" required placeholder="••••••••">
-                </div>
-                <button type="submit" class="btn-login">Đăng ký</button>
-            </form>
-            <div class="register-link">
-                Đã có tài khoản? <a href="login.html">Đăng nhập ngay</a>
-            </div>
-        </div>
-    </div>
+<body>
+
+<div class="container">
+    <h2>Đăng ký</h2>
+
+    <input type="text" id="name" placeholder="Họ tên">
+
+    <input type="email" id="email" placeholder="Email">
+
+    <input type="password" id="password" placeholder="Mật khẩu">
+
+    <button onclick="register()">Đăng ký</button>
+
+    <p>Đã có tài khoản?
+        <a href="login.html">Đăng nhập</a>
+    </p>
+</div>
+
+<script src="../js/auth.js"></script>
+
 </body>
 </html>

@@ -201,3 +201,28 @@ a {
     color: #6366f1;     
     font-weight: 600;   
 }
+
+
+
+
+
+
+
+
+
+
+
+.calendar-grid span{
+    cursor:pointer;
+}
+
+.calendar-grid .active{
+    background:#4CAF50;
+    color:white;
+    border-radius:50%;
+}
+
+.calendar-grid .today{
+    border:2px solid orange;
+    border-radius:50%;
+}
