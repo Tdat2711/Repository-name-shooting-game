@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Kho Thẻ - ForgetMeNot</title>
+    <link rel="stylesheet" href="/css/khothe.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-book-icon">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <span class="logo-text">ForgetMeNot</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-menu">
+                <a href="index.html" class="menu-item active">
+                    <i class="fa-solid fa-house"></i>
+                    <span class="menu-text">Trang chủ</span>
+                </a>
+                <a href="khothe.html" class="menu-item">
+    <i class="fa-solid fa-layer-group"></i>
+    <span class="menu-text">Kho thẻ của tôi</span>
+</a>
+                <a href="ontap.html" class="menu-item">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <span class="menu-text">Ôn tập</span>
+                </a>
+                <a href="thongke.html" class="menu-item">
+                    <i class="fa-solid fa-chart-simple"></i>
+                    <span class="menu-text">Thống kê</span>
+                </a>
+                <a href="congdong.html" class="menu-item">
+                    <i class="fa-solid fa-users"></i>
+                    <span class="menu-text">Cộng đồng</span>
+                </a>
+                <a href="caidat.html" class="menu-item">
+                    <i class="fa-solid fa-gear"></i>
+                    <span class="menu-text">Cài đặt</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-avatar">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <div class="user-info">
+                    <p class="user-name">Người Dùng</p>
+                    <p class="user-id">ID: 27112007</p>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+            <header class="content-header">
+                <h1>Kho Thẻ của tôi</h1>
+                <div class="page-actions">
+                    <button id="btn-ai-generate">AI Generate</button>
+                    <button id="btn-tao-bo-the">+ Tạo bộ thẻ</button>
+                </div>
+            </header>
+            
+            <div id="deck-grid" class="deck-grid">
+                </div>
+        </main>
+    </div>
+    <script type="module" src="khothe.js"></script>
+</body>
+</html>

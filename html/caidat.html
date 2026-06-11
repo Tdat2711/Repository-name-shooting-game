@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cài đặt</title>
+    <link rel="stylesheet" href="/css/caidat.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-book-icon">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <span class="logo-text">ForgotMeNot</span>
+                </div>
+                <button class="toggle-btn">
+                    <i class="fa-solid fa-chevron-left" id="toggle-icon"></i>
+                </button>
+            </div>
+
+
+            <nav class="sidebar-menu">
+                <a href="index.html" class="menu-item active">
+                    <i class="fa-solid fa-house"></i>
+                    <span class="menu-text">Trang chủ</span>
+                </a>
+                </a>
+                <a href="khothe.html" class="menu-item">
+    <i class="fa-solid fa-layer-group"></i>
+    <span class="menu-text">Kho thẻ của tôi</span>
+</a>
+                <a href="ontap.html" class="menu-item">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <span class="menu-text">Ôn tập</span>
+                </a>
+                <a href="thongke.html" class="menu-item">
+                    <i class="fa-solid fa-chart-simple"></i>
+                    <span class="menu-text">Thống kê</span>
+                </a>
+                <a href="congdong.html" class="menu-item">
+                    <i class="fa-solid fa-users"></i>
+                    <span class="menu-text">Cộng đồng</span>
+                </a>
+                <a href="caidat.html" class="menu-item">
+                    <i class="fa-solid fa-gear"></i>
+                    <span class="menu-text">Cài đặt</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-avatar">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <div class="user-info">
+                    <p class="user-name">Người Dùng</p>
+                    <p class="user-id">ID: 27112007</p>
+                </div>
+            </div>
+        </aside>
+
+        <section class="page">
+            <h1>Cài đặt</h1>
+            <div class="settings-content">
+                <div class="content-header">
+                    <div>
+                        <h2>General</h2>
+                        <p>Giao diện và ngôn ngữ ứng dụng</p>
+                    </div>
+                </div>
+
+                <section class="setting-card">
+                <div class="setting-row">
+                    <div>
+                        <p class="setting-label">Dark Mode</p>
+                        <span class="setting-desc">Chuyển sang giao diện tối để dễ nhìn hơn trong điều kiện ánh sáng yếu</span>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </section>
+
+            <section class="setting-card">
+                <div class="setting-row">
+                    <div>
+                        <p class="setting-label">Ngôn Ngữ</p>
+                        <span class="setting-desc">Chọn ngôn ngữ hiển thị của ứng dụng</span>
+                    </div>
+                    <select>
+                        <option value="vi">vn Tiếng Việt</option>
+                        <option value="en">en English</option>
+                    </select>
+                </div>
+            </section>
+
+            <section class="setting-card boxed-panel">
+                <div class="panel-label">
+                    <p class="setting-label">Thuật toán Spaced Repetition</p>
+                    <span class="setting-desc">Hệ thống tự động tính toán lịch ôn tập dựa trên mức độ ghi nhớ của bạn</span>
+                </div>
+                <div class="panel-actions">
+                    <button class="panel-btn">SM-2 Algorithm</button>
+                    <span class="status-chip">Đang hoạt động</span>
+                </div>
+            </section>
+
+            <div class="footer-actions">
+                <button class="save-btn">Lưu thay đổi</button>
+            </div>
+        </div>
+        </section>
+    </div>
+</body>
+</html>
+
+
