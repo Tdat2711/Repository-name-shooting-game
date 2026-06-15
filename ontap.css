@@ -1,0 +1,108 @@
+:root {
+    --bg-main: #f8fafc;     
+    --bg-card: #ffffff;   
+    --bg-sidebar: #f1f5f9;  
+    --text-light: #0f172a;   
+    --text-muted: #64748b;  
+    --primary-blue: #3b82f6;  
+    --accent-purple: #4f46e5;
+    --accent-green: #10b981; 
+    --border-color: #e2e8f0;  
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-light);
+    overflow-x: hidden;
+}
+
+.app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.txt-green { color: #10b981; }
+.txt-blue { color: #3b82f6; }
+.txt-red { color: #ef4444; }
+.txt-orange { color: #f97316; }
+.font-13 { font-size: 13px; }
+.bg-blue { background-color: #3b82f6; }
+.bg-purple { background-color: #6366f1; }
+.bg-green { background-color: #10b981; }
+
+
+.sidebar.collapsed {
+    width: 70px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-book-icon {
+    width: 34px;
+    height: 34px;
+    background-color: var(--primary-blue);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 16px;
+}
+
+.logo-text {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-light);
+    letter-spacing: -0.3px;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+}
+
+.sidebar.collapsed .logo-text {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.toggle-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 25px;
+    max-width: 1300px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

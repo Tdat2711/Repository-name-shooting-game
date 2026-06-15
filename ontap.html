@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ôn Tập - ForgetMeNot </title>
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --border-color: #e2e8f0;
+            --text-muted: #64748b;
+            --text-light: #0f172a;
+            --primary-blue: #3b82f6;
+            --accent-green: #22c55e;
+            --txt-red: #ef4444;
+            --txt-orange: #f59e0b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-light); }
+        .study-wrapper { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 30px; }
+        .study-header { display: flex; align-items: center; gap: 20px; font-size: 14px; font-weight: bold; }
+        .progress-container { flex-grow: 1; height: 10px; background: #e2e8f0; border-radius: 20px; overflow: hidden; }
+        .progress-bar { height: 100%; background: var(--accent-green); border-radius: 20px; transition: width 0.3s ease; }
+        
+        .card-section { display: none; flex-direction: column; gap: 30px; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .flashcard-giant {
+            width: 100%; height: 480px;
+            perspective: 1000px;
+            position: relative;
+        }
+
+        .card-inner {
+            width: 100%; height: 100%;
+            position: relative;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%; height: 100%;
+            backface-visibility: hidden;
+            background-color: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            background-color: #f0fdf4;
+            border-color: var(--accent-green);
+        }
+
+        .flip-toggle { display: none; }
+        .flip-toggle:checked + .flashcard-giant .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-icon {
+            position: absolute; width: 48px; height: 48px;
+            background: var(--bg-main); border: 1px solid var(--border-color);
+            border-radius: 14px; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; font-size: 20px; z-index: 10; transition: 0.2s;
+        }
+        .card-icon:hover { background: #e2e8f0; }
+        .icon-top-left { top: 24px; left: 24px; }
+        .icon-top-right { top: 24px; right: 24px; }
+        .icon-bottom-right { bottom: 24px; right: 24px; }
+
+        .card-main-text { text-align: center; }
+        .card-category { color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; font-size: 13px; margin-bottom: 15px; display: block; }
+        .card-word { font-size: 64px; font-weight: 800; color: var(--text-light); margin-bottom: 8px; }
+        .card-meaning { font-size: 48px; font-weight: bold; color: var(--accent-green); }
+        .card-ipa { font-size: 22px; color: var(--primary-blue); }
+        .card-audio { margin-top: 20px; height: 35px; border-radius: 20px; outline: none; }
+
+        .rating-controls { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        .btn-rating {
+            padding: 18px 12px; border-radius: 16px; border: 1px solid var(--border-color);
+            background: var(--bg-card); cursor: pointer; transition: all 0.2s;
+            text-align: center; display: flex; flex-direction: column; gap: 5px; text-decoration: none; color: inherit;
+        }
+        .btn-rating:hover { transform: translateY(-3px); border-color: var(--primary-blue); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .txt-red { color: var(--txt-red); } .txt-orange { color: var(--txt-orange); } .txt-blue { color: var(--primary-blue); } .txt-green { color: var(--accent-green); }
+
+        .step-radio { display: none; }
+
+        #q1:checked ~ .app-container #sec-1 { display: flex; }
+        #q2:checked ~ .app-container #sec-2 { display: flex; }
+        #q3:checked ~ .app-container #sec-3 { display: flex; }
+        #q4:checked ~ .app-container #sec-4 { display: flex; }
+        #q5:checked ~ .app-container #sec-5 { display: flex; }
+        #q6:checked ~ .app-container #sec-6 { display: flex; }
+        #q7:checked ~ .app-container #sec-7 { display: flex; }
+        #q8:checked ~ .app-container #sec-8 { display: flex; }
+        #q9:checked ~ .app-container #sec-9 { display: flex; }
+        #q10:checked ~ .app-container #sec-10 { display: flex; }
+        #q11:checked ~ .app-container #sec-11 { display: flex; }
+
+        .progress-text::before { content: "1/10"; }
+        #q1:checked ~ .app-container .progress-bar { width: 10%; }
+        
+        #q2:checked ~ .app-container .progress-text::before { content: "2/10"; }
+        #q2:checked ~ .app-container .progress-bar { width: 20%; }
+        
+        #q3:checked ~ .app-container .progress-text::before { content: "3/10"; }
+        #q3:checked ~ .app-container .progress-bar { width: 30%; }
+        
+        #q4:checked ~ .app-container .progress-text::before { content: "4/10"; }
+        #q4:checked ~ .app-container .progress-bar { width: 40%; }
+        
+        #q5:checked ~ .app-container .progress-text::before { content: "5/10"; }
+        #q5:checked ~ .app-container .progress-bar { width: 50%; }
+        
+        #q6:checked ~ .app-container .progress-text::before { content: "6/10"; }
+        #q6:checked ~ .app-container .progress-bar { width: 60%; }
+        
+        #q7:checked ~ .app-container .progress-text::before { content: "7/10"; }
+        #q7:checked ~ .app-container .progress-bar { width: 70%; }
+        
+        #q8:checked ~ .app-container .progress-text::before { content: "8/10"; }
+        #q8:checked ~ .app-container .progress-bar { width: 80%; }
+        
+        #q9:checked ~ .app-container .progress-text::before { content: "9/10"; }
+        #q9:checked ~ .app-container .progress-bar { width: 90%; }
+        
+        #q10:checked ~ .app-container .progress-text::before { content: "10/10"; }
+        #q10:checked ~ .app-container .progress-bar { width: 100%; }
+
+        #q11:checked ~ .app-container .progress-text::before { content: "Hoàn thành!"; color: var(--accent-green); }
+        #q11:checked ~ .app-container .progress-bar { width: 100%; background: var(--accent-green); }
+
+        .completed-screen { text-align: center; padding: 50px; background: white; border-radius: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body>
+
+    <input type="radio" name="step" id="q1" class="step-radio" checked>
+    <input type="radio" name="step" id="q2" class="step-radio">
+    <input type="radio" name="step" id="q3" class="step-radio">
+    <input type="radio" name="step" id="q4" class="step-radio">
+    <input type="radio" name="step" id="q5" class="step-radio">
+    <input type="radio" name="step" id="q6" class="step-radio">
+    <input type="radio" name="step" id="q7" class="step-radio">
+    <input type="radio" name="step" id="q8" class="step-radio">
+    <input type="radio" name="step" id="q9" class="step-radio">
+    <input type="radio" name="step" id="q10" class="step-radio">
+    <input type="radio" name="step" id="q11" class="step-radio">
+    
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-book-icon">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <span class="logo-text">ForgetMeNot</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-menu">
+                <a href="index.html" class="menu-item">
+                    <i class="fa-solid fa-house"></i>
+                    <span class="menu-text">Trang chủ</span>
+                </a>
+                <a href="khothe.html" class="menu-item">
+    <i class="fa-solid fa-layer-group"></i>
+    <span class="menu-text">Kho thẻ của tôi</span>
+</a>
+                <a href="ontap.html" class="menu-item active">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <span class="menu-text">Ôn tập</span>
+                </a>
+                <a href="thongke.html" class="menu-item">
+                    <i class="fa-solid fa-chart-simple"></i>
+                    <span class="menu-text">Thống kê</span>
+                </a>
+                <a href="congdong.html" class="menu-item">
+                    <i class="fa-solid fa-users"></i>
+                    <span class="menu-text">Cộng đồng</span>
+                </a>
+                <a href="caidat.html" class="menu-item">
+                    <i class="fa-solid fa-gear"></i>
+                    <span class="menu-text">Cài đặt</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+
+    <div class="user-avatar">
+        <i class="fa-solid fa-user"></i>
+    </div>
+
+    <div class="user-info">
+        <p class="user-name" id="sidebarUserName"></p>
+        <p class="user-id" id="sidebarUserId"></p>
+    </div>
+
+</div>
+
+<div class="sidebar-motto">
+    <h4>🧠 Học Ít Nhưng</h4>
+    <p>Nhớ Lâu Hơn</p>
+</div>
+        </aside>
+
+
+        <main class="main-content">
+            <div class="study-wrapper">
+                
+                <div class="study-header">
+                    <span>Tiến độ: <strong class="progress-text"></strong></span>
+                    <div class="progress-container"><div class="progress-bar"></div></div>
+                </div>
+
+                <div class="card-section" id="sec-1">
+                    <input type="checkbox" id="flip-1" class="flip-toggle">
+                    <div class="flashcard-giant">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <div class="card-main-text">
+                                    <span class="card-category">Chủ đề: Công việc</span>
+                                    <h1 class="card-word">Persistence</h1>
+                                    <p class="card-ipa">/pəˈsɪstəns/</p>
+                                    <audio controls class="card-audio" src="https://dict.youdao.com/dictvoice?audio=persistence&type=2"></audio>
+                                </div>
+                                <label for="flip-1" class="card-icon icon-bottom-right" title="Lật thẻ">🔄</label>
+                            </div>
+                            <div class="card-back">
+                                <div class="card-main-text">
+                                    <h1 class="card-meaning">Sự kiên trì</h1>
+                                    <p class="card-ipa">(Danh từ)</p>
+                                </div>
+                                <label for="flip-1" class="card-icon icon-bottom-right" title="Lật lại">🔄</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rating-controls">
+                        <label for="q2" class="btn-rating"><strong class="txt-red">Chưa thuộc</strong><span>&lt; 1 phút</span></label>
+                        <label for="q2" class="btn-rating"><strong class="txt-orange">Khó</strong><span>2 ngày</span></label>
+                        <label for="q2" class="btn-rating"><strong class="txt-blue">Nhớ tốt</strong><span>4 ngày</span></label>
+                        <label for="q2" class="btn-rating"><strong class="txt-green">Rất dễ</strong><span>7 ngày</span></label>
+                    </div>
+                </div>
+
+                <div class="card-section" id="sec-2">
+                    <input type="checkbox" id="flip-2" class="flip-toggle">
+                    <div class="flashcard-giant">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <div class="card-main-text">
+                                    <span class="card-category">Chủ đề: Công việc</span>
+                                    <h1 class="card-word">Innovation</h1>
+                                    <p class="card-ipa">/ˌɪnəˈveɪʃn/</p>
+                                    <audio controls class="card-audio" src="https://dict.youdao.com/dictvoice?audio=innovation&type=2"></audio>
+                                </div>
+                                <label for="flip-2" class="card-icon icon-bottom-right" title="Lật thẻ">🔄</label>
+                            </div>
+                            <div class="card-back">
+                                <div class="card-main-text">
+                                    <h1 class="card-meaning">Sự đổi mới</h1>
+                                </div>
+                                <label for="flip-2" class="card-icon icon-bottom-right">🔄</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rating-controls">
+                        <label for="q3" class="btn-rating"><strong class="txt-red">Chưa thuộc</strong><span>&lt; 1 phút</span></label>
+                        <label for="q3" class="btn-rating"><strong class="txt-orange">Khó</strong><span>2 ngày</span></label>
+                        <label for="q3" class="btn-rating"><strong class="txt-blue">Nhớ tốt</strong><span>4 ngày</span></label>
+                        <label for="q3" class="btn-rating"><strong class="txt-green">Rất dễ</strong><span>7 ngày</span></label>
+                    </div>
+                </div>
+
+                <div class="card-section" id="sec-3">
+                    <input type="checkbox" id="flip-3" class="flip-toggle">
+                    <div class="flashcard-giant">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <div class="card-main-text">
+                                    <h1 class="card-word">Efficiency</h1>
+                                    <p class="card-ipa">/ɪˈfɪʃnsi/</p>
+                                    <audio controls class="card-audio" src="https://dict.youdao.com/dictvoice?audio=efficiency&type=2"></audio>
+                                </div>
+                                <label for="flip-3" class="card-icon icon-bottom-right">🔄</label>
+                            </div>
+                            <div class="card-back">
+                                <div class="card-main-text"><h1 class="card-meaning">Hiệu suất</h1></div>
+                                <label for="flip-3" class="card-icon icon-bottom-right">🔄</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rating-controls">
+                        <label for="q4" class="btn-rating"><strong class="txt-red">Chưa thuộc</strong></label>
+                        <label for="q4" class="btn-rating"><strong class="txt-orange">Khó</strong></label>
+                        <label for="q4" class="btn-rating"><strong class="txt-blue">Nhớ tốt</strong></label>
+                        <label for="q4" class="btn-rating"><strong class="txt-green">Rất dễ</strong></label>
+                    </div>
+                </div>
+
+                <div class="card-section" id="sec-4">
+                    <input type="checkbox" id="flip-4" class="flip-toggle">
+                    <div class="flashcard-giant">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <div class="card-main-text">
+                                    <h1 class="card-word">Strategy</h1>
+                                    <p class="card-ipa">/ˈstrætədʒi/</p>
+                                    <audio controls class="card-audio" src="https://dict.youdao.com/dictvoice?audio=strategy&type=2"></audio>
+                                </div>
+                                <label for="flip-4" class="card-icon icon-bottom-right">🔄</label>
+                            </div>
+                            <div class="card-back">
+                                <div class="card-main-text"><h1 class="card-meaning">Chiến lược</h1></div>
+                                <label for="flip-4" class="card-icon icon-bottom-right">🔄</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rating-controls">
+                        <label for="q5" class="btn-rating"><strong class="txt-red">Chưa thuộc</strong></label>
+                        <label for="q5" class="btn-rating"><strong class="txt-orange">Khó</strong></label>
+                        <label for="q5" class="btn-rating"><strong class="txt-blue">Nhớ tốt</strong></label>
+                        <label for="q5" class="btn-rating"><strong class="txt-green">Rất dễ</strong></label>
+                    </div>
+                </div>
+
+                <div class="card-section" id="sec-5">
+                    <input type="checkbox" id="flip-5" class="flip-toggle">
+                    <div class="flashcard-giant">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <div class="card-main-text">
+                                    <h1 class="card-word">Productivity</h1>
+                                    <audio controls class="card-audio" src="https://dict.youdao.com/dictvoice?audio=productivity&type=2"></audio>
+                                </div>
+                                <label for="flip-5" class="card-icon icon-bottom-right">🔄</label>
+                            </div>
+                            <div class="card-back">
+                                <div class="card-main-text"><h1 class="card-meaning">Năng suất</h1></div>
+                                <label for="flip-5" class="card-icon icon-bottom-right">🔄</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rating-controls">
+                        <label for="q6" class="btn-rating"><strong class="txt-red">Chưa thuộc</strong></label>
+                        <label for="q6" class="btn-rating"><strong class="txt-orange">Khó</strong></label>
+                        <label for="q6" class="btn-rating"><strong class="txt-blue">Nhớ tốt</strong></label>
+                        <label for="q6" class="btn-rating"><strong class="txt-green">Rất dễ</strong></label>
+                    </div>
+                </div>
+
+                <div class="card-section" id="sec-6">
+                    <input type="checkbox" id="flip-6" class="flip-toggle">
+                    <div class="flashcard-giant"><div class="card-inner">
+                        <div class="card-front"><div class="card-main-text"><h1 class="card-word">Collaboration</h1></div><label for="flip-6" class="card-icon icon-bottom-right">🔄</label></div>
+                        <div class="card-back"><div class="card-main-text"><h1 class="card-meaning">Sự cộng tác</h1></div><label for="flip-6" class="card-icon icon-bottom-right">🔄</label></div>
+                    </div></div>
+                    <div class="rating-controls"><label for="q7" class="btn-rating"><strong class="txt-blue">Tiếp tục</strong></label></div>
+                </div>
+
+                <div class="card-section" id="sec-7">
+                    <input type="checkbox" id="flip-7" class="flip-toggle">
+                    <div class="flashcard-giant"><div class="card-inner">
+                        <div class="card-front"><div class="card-main-text"><h1 class="card-word">Leadership</h1></div><label for="flip-7" class="card-icon icon-bottom-right">🔄</label></div>
+                        <div class="card-back"><div class="card-main-text"><h1 class="card-meaning">Lãnh đạo</h1></div><label for="flip-7" class="card-icon icon-bottom-right">🔄</label></div>
+                    </div></div>
+                    <div class="rating-controls"><label for="q8" class="btn-rating"><strong class="txt-blue">Tiếp tục</strong></label></div>
+                </div>
+
+                <div class="card-section" id="sec-8">
+                    <input type="checkbox" id="flip-8" class="flip-toggle">
+                    <div class="flashcard-giant"><div class="card-inner">
+                        <div class="card-front"><div class="card-main-text"><h1 class="card-word">Negotiation</h1></div><label for="flip-8" class="card-icon icon-bottom-right">🔄</label></div>
+                        <div class="card-back"><div class="card-main-text"><h1 class="card-meaning">Sự đàm phán</h1></div><label for="flip-8" class="card-icon icon-bottom-right">🔄</label></div>
+                    </div></div>
+                    <div class="rating-controls"><label for="q9" class="btn-rating"><strong class="txt-blue">Tiếp tục</strong></label></div>
+                </div>
+
+                <div class="card-section" id="sec-9">
+                    <input type="checkbox" id="flip-9" class="flip-toggle">
+                    <div class="flashcard-giant"><div class="card-inner">
+                        <div class="card-front"><div class="card-main-text"><h1 class="card-word">Ambition</h1></div><label for="flip-9" class="card-icon icon-bottom-right">🔄</label></div>
+                        <div class="card-back"><div class="card-main-text"><h1 class="card-meaning">Hoài bão</h1></div><label for="flip-9" class="card-icon icon-bottom-right">🔄</label></div>
+                    </div></div>
+                    <div class="rating-controls"><label for="q10" class="btn-rating"><strong class="txt-blue">Tiếp tục</strong></label></div>
+                </div>
+
+                <div class="card-section" id="sec-10">
+                    <input type="checkbox" id="flip-10" class="flip-toggle">
+                    <div class="flashcard-giant"><div class="card-inner">
+                        <div class="card-front"><div class="card-main-text"><h1 class="card-word">Resilience</h1></div><label for="flip-10" class="card-icon icon-bottom-right">🔄</label></div>
+                        <div class="card-back"><div class="card-main-text"><h1 class="card-meaning">Sự kiên cường</h1></div><label for="flip-10" class="card-icon icon-bottom-right">🔄</label></div>
+                    </div></div>
+                    <div class="rating-controls"><label for="q11" class="btn-rating"><strong class="txt-green">Kết thúc ôn tập</strong></label></div>
+                </div>
+
+                <div class="card-section" id="sec-11">
+                    <div class="completed-screen">
+                        <h1 style="font-size: 48px; margin-bottom: 20px;">🎉</h1>
+                        <h2>Chúc mừng!</h2>
+                        <p style="color: var(--text-muted); margin-top: 10px;">Bạn đã hoàn thành 10 thẻ ôn tập ngày hôm nay.</p><br>
+                        <label for="q1" class="btn-rating" style="display:inline-block; padding: 10px 30px; background: var(--primary-blue); color: white;">Ôn tập lại từ đầu</label>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+</body>
+</html>

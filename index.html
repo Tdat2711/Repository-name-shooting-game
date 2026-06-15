@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ForgetMeNot</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<script>
+const currentUser = localStorage.getItem("currentUser");
+
+if(!currentUser){
+    window.location.href = "login.html";
+}
+</script>
+    <div class="app-container">
+        
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-book-icon">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <span class="logo-text">ForgetMeNot</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-menu">
+                <a href="index.html" class="menu-item active">
+                    <i class="fa-solid fa-house"></i>
+                    <span class="menu-text">Trang chủ</span>
+                </a>
+                <a href="khothe.html" class="menu-item">
+    <i class="fa-solid fa-layer-group"></i>
+    <span class="menu-text">Kho thẻ của tôi</span>
+</a>
+                <a href="ontap.html" class="menu-item">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <span class="menu-text">Ôn tập</span>
+                </a>
+                <a href="thongke.html" class="menu-item">
+                    <i class="fa-solid fa-chart-simple"></i>
+                    <span class="menu-text">Thống kê</span>
+                </a>
+                <a href="congdong.html" class="menu-item">
+                    <i class="fa-solid fa-users"></i>
+                    <span class="menu-text">Cộng đồng</span>
+                </a>
+                <a href="caidat.html" class="menu-item">
+                    <i class="fa-solid fa-gear"></i>
+                    <span class="menu-text">Cài đặt</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+
+    <div class="user-avatar">
+        <i class="fa-solid fa-user"></i>
+    </div>
+
+    <div class="user-info">
+        <p class="user-name" id="sidebarUserName"></p>
+        <p class="user-id" id="sidebarUserId"></p>
+    </div>
+
+</div>
+
+<div class="sidebar-motto">
+    <h4>🧠 Học Ít Nhưng</h4>
+    <p>Nhớ Lâu Hơn</p>
+</div>
+        </aside>
+
+        <main class="main-content">
+            
+            <header class="content-header">
+                <h1>Xin chào!</h1>
+                <p class="user-name" id="userName"></p>
+                <p class="welcome-message">Chào mừng bạn đến với ForgetMeNot - nơi biến việc học thành một hành trình thú vị và hiệu quả!
+                </p>
+                <b></b>
+            </header>
+
+            <section class="quick-stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon icon-orange"><i class="fa-solid fa-fire"></i></div>
+                    <div class="stat-info">
+                        <span>Chuỗi Streak</span>
+                        <strong>1 ngày</strong>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon icon-brown"><i class="fa-solid fa-box"></i></div>
+                    <div class="stat-info">
+                        <span>Tổng bộ thẻ</span>
+                        <strong>2 bộ</strong>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon icon-lightning"><i class="fa-solid fa-bolt"></i></div>
+                    <div class="stat-info">
+                        <span>Học Cấp Tốc</span>
+                        <strong>0 đang chạy</strong>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon icon-purple"><i class="fa-solid fa-user-group"></i></div>
+                    <div class="stat-info">
+                        <span>Liên kết</span>
+                        <strong>Cộng đồng</strong>
+                    </div>
+                </div>
+            </section>
+
+            <div class="dashboard-body">
+                
+                <div class="left-column">
+                    
+                    <section class="features-action-grid">
+    
+    <div class="action-card review-card">
+        <div class="action-icon-block block-purple">
+            <i class="fa-solid fa-brain"></i>
+        </div>
+        <div class="action-card-content">
+            <h3>Ôn tập ngay</h3>
+            <p>Bắt đầu với 25 thẻ cần ôn hôm nay</p>
+            <button class="btn btn-purple">Bắt đầu học <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+        <div class="illustration-img">
+            <i class="fa-solid fa-clone"></i>
+        </div>
+    </div>
+
+    <div class="action-card create-card">
+        <div class="action-icon-block block-green">
+            <i class="fa-solid fa-robot"></i>
+        </div>
+        <div class="action-card-content">
+            <h3>Tạo Flashcard</h3>
+            <p>Tải tài liệu lên, AI sẽ giúp bạn tạo thẻ nhanh chóng</p>
+            <button class="btn btn-green">Tạo ngay <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+        <div class="illustration-img">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+        </div>
+    </div>
+</section>
+
+<section class="deck-list-container">
+    <h3 class="deck-list-title">Bộ thẻ cần ôn hôm nay</h3>
+    
+    <div class="deck-list-content">
+        
+        <div class="deck-row-item">
+            <div class="deck-left">
+                <div class="deck-icon-box bg-blue">
+                    <i class="fa-solid fa-calculator"></i>
+                </div>
+                <div class="deck-text">
+                    <h4>Toán Cao Cấp</h4>
+                    <span>120 thẻ</span>
+                </div>
+            </div>
+            <div class="deck-right">
+                <span class="txt-orange font-13">15 thẻ đến hạn</span>
+                <button class="btn-outline-review">Ôn tập</button>
+            </div>
+        </div>
+
+        <div class="deck-row-item">
+            <div class="deck-left">
+                <div class="deck-icon-box bg-purple">
+                    <i class="fa-solid fa-language"></i>
+                </div>
+                <div class="deck-text">
+                    <h4>Tiếng Anh IELTS</h4>
+                    <span>210 thẻ</span>
+                </div>
+            </div>
+            <div class="deck-right">
+                <span class="txt-orange font-13">8 thẻ đến hạn</span>
+                <button class="btn-outline-review">Ôn tập</button>
+            </div>
+        </div>
+
+        <div class="deck-row-item">
+            <div class="deck-left">
+                <div class="deck-icon-box bg-green">
+                    <i class="fa-solid fa-chart-line"></i>
+                </div>
+                <div class="deck-text">
+                    <h4>Kinh tế Vĩ mô</h4>
+                    <span>85 thẻ</span>
+                </div>
+            </div>
+            <div class="deck-right">
+                <span class="txt-orange font-13">5 thẻ đến hạn</span>
+                <button class="btn-outline-review">Ôn tập</button>
+            </div>
+        </div>
+    </div>
+</section>
+                    
+                        <a href="#" class="view-all-decks">Xem tất cả bộ thẻ <i class="fa-solid fa-arrow-right-long"></i></a>
+                    </section>
+                </div>
+
+                <div class="right-column">
+
+    <div class="streak-banner">
+
+    <h4>Tích Lũy Streak 🔥</h4>
+
+    <p>
+        Bấm điểm danh mỗi ngày để duy trì chuỗi học tập.
+    </p>
+
+    <div class="streak-info">
+        <span>🔥 Streak:</span>
+        <span id="streakCount">0</span>
+        <span>ngày</span>
+    </div>
+
+    <button id="btnStreakCheck" class="btn-streak-check">
+        <i class="fa-solid fa-bullseye"></i>
+        Điểm danh hôm nay
+    </button>
+
+</div>
+
+<div class="calendar-card">
+
+    <div class="calendar-header">
+
+        <i id="prevMonth"
+           class="fa-solid fa-chevron-left">
+        </i>
+
+        <span id="calendarHeaderTitle">
+            June 2026
+        </span>
+
+        <i id="nextMonth"
+           class="fa-solid fa-chevron-right">
+        </i>
+
+    </div>
+
+    <div id="calendarGridDates"
+         class="calendar-grid">
+    </div>
+
+</div>
+
+<div class="study-detail-card">
+
+    <div class="study-card-header">
+        <i class="fa-solid fa-chart-column"></i>
+        <span>Thống kê ngày học</span>
+    </div>
+
+    <div class="study-item">
+        <i class="fa-regular fa-calendar"></i>
+        <span>Ngày</span>
+        <strong id="detailDate">Chưa chọn</strong>
+    </div>
+
+    <div class="study-item">
+        <i class="fa-solid fa-fire"></i>
+        <span>Trạng thái</span>
+        <strong id="detailCheckin">Chưa điểm danh</strong>
+    </div>
+
+    <div class="study-item">
+        <i class="fa-solid fa-layer-group"></i>
+        <span>Bộ thẻ đã học</span>
+        <strong id="detailDecks">0</strong>
+    </div>
+
+    <div class="study-item">
+        <i class="fa-solid fa-clone"></i>
+        <span>Flashcard đã ôn</span>
+        <strong id="detailCards">0</strong>
+    </div>
+
+    <div class="study-item">
+        <i class="fa-regular fa-clock"></i>
+        <span>Thời gian học</span>
+        <strong id="detailTime">0 phút</strong>
+    </div>
+
+</div>
+
+</div>
+
+            </div>
+        </main>
+        <script src="../js/auth.js"></script>
+        <script src="../js/calendar.js"></script>
+        <script type="module" src="../js/main.js"></script>
+        <script>
+const currentUserData =
+    JSON.parse(localStorage.getItem("currentUser"));
+
+if(currentUserData){
+
+    const sidebarName =
+        document.getElementById("sidebarUserName");
+
+    const sidebarId =
+        document.getElementById("sidebarUserId");
+
+    const headerName =
+        document.getElementById("userName");
+
+    if(sidebarName){
+        sidebarName.textContent =
+            currentUserData.name;
+    }
+
+    if(sidebarId){
+        sidebarId.textContent =
+            currentUserData.id || "FMN-USER";
+    }
+
+    if(headerName){
+        headerName.textContent =
+            currentUserData.name;
+    }
+}
+</script>
+
+<script>
+function logout(){
+    localStorage.removeItem("currentUser");
+    window.location.href = "login.html";
+}
+</script>
+<script>
+function logout(){
+    localStorage.removeItem("token");
+    localStorage.removeItem("email");
+
+    window.location.href = "login.html";
+}
+</script>
+    </div>
+
+    <script>
+const currentPage =
+    window.location.pathname.split("/").pop();
+
+document.querySelectorAll(".menu-item")
+.forEach(item => {
+
+    item.classList.remove("active");
+
+    if(item.getAttribute("href") === currentPage){
+        item.classList.add("active");
+    }
+});
+</script>
+
+
+    
+</body>
+</html>

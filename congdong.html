@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="vi">
+<>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ForgetMeNot - Cộng đồng</title>
+    <link rel="stylesheet" href="../css/congdongstyle.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="preconnect" href="../css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-book-icon">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <span class="logo-text">ForgetMeNot</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-menu">
+                <a href="index.html" class="menu-item">
+                    <i class="fa-solid fa-house"></i>
+                    <span class="menu-text">Trang chủ</span>
+                </a>
+                <a href="khothe.html" class="menu-item">
+    <i class="fa-solid fa-layer-group"></i>
+    <span class="menu-text">Kho thẻ của tôi</span>
+</a>
+                <a href="ontap.html" class="menu-item">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <span class="menu-text">Ôn tập</span>
+                </a>
+                <a href="thongke.html" class="menu-item">
+                    <i class="fa-solid fa-chart-simple"></i>
+                    <span class="menu-text">Thống kê</span>
+                </a>
+                <a href="congdong.html" class="menu-item active">
+                    <i class="fa-solid fa-users"></i>
+                    <span class="menu-text">Cộng đồng</span>
+                </a>
+                <a href="caidat.html" class="menu-item">
+                    <i class="fa-solid fa-gear"></i>
+                    <span class="menu-text">Cài đặt</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+
+    <div class="user-avatar">
+        <i class="fa-solid fa-user"></i>
+    </div>
+
+    <div class="user-info">
+        <p class="user-name" id="sidebarUserName"></p>
+        <p class="user-id" id="sidebarUserId"></p>
+    </div>
+
+</div>
+
+<div class="sidebar-motto">
+    <h4>🧠 Học Ít Nhưng</h4>
+    <p>Nhớ Lâu Hơn</p>
+</div>
+        </aside>
+
+        <main class="main-content">
+
+            <header class="content-header">
+                <h1>Cộng Đồng</h1>
+                <p>Xem bảng xếp hạng và so sánh tiến độ với bạn bè</p>
+            </header>
+
+            <section class="community-stats-grid">
+                <div class="cstat-card">
+                    <div class="cstat-icon icon-c-blue"><i class="fa-solid fa-users"></i></div>
+                    <div class="cstat-label">Thành viên</div>
+                    <div class="cstat-value">12,480</div>
+                    <div class="cstat-sub">+234 tuần này</div>
+                </div>
+                <div class="cstat-card">
+                    <div class="cstat-icon icon-c-green"><i class="fa-solid fa-fire-flame-curved"></i></div>
+                    <div class="cstat-label">Thẻ học hôm nay</div>
+                    <div class="cstat-value">89,321</div>
+                    <div class="cstat-sub">Toàn cộng đồng</div>
+                </div>
+                <div class="cstat-card">
+                    <div class="cstat-icon icon-c-orange"><i class="fa-solid fa-trophy"></i></div>
+                    <div class="cstat-label">Streak dài nhất</div>
+                    <div class="cstat-value">365</div>
+                    <div class="cstat-sub">ngày — minh_hoc99</div>
+                </div>
+                <div class="cstat-card">
+                    <div class="cstat-icon icon-c-purple"><i class="fa-solid fa-layer-group"></i></div>
+                    <div class="cstat-label">Bộ thẻ chia sẻ</div>
+                    <div class="cstat-value">3,712</div>
+                    <div class="cstat-sub">bộ công khai</div>
+                </div>
+            </section>
+
+            <div class="community-body">
+
+                <div>
+                    <div class="leaderboard-card">
+                        <div class="leaderboard-header">
+                            <div>
+                                <h3><i class="fa-solid fa-ranking-star header-star-icon"></i>Bảng Xếp Hạng</h3>
+                                <p>Cập nhật mỗi 24 giờ</p>
+                            </div>
+                            <div class="period-tag">Tuần này</div>
+                        </div>
+
+                        <div class="podium-row">
+                            <div class="podium-item rank-2">
+                                <div class="podium-avatar av-indigo style-podium-sm">TL</div>
+                                <div class="podium-name">thuylinhh</div>
+                                <div class="podium-score">4,210 điểm</div>
+                                <div class="podium-badge-2">🥈 Hạng 2</div>
+                                <div class="podium-block block-silver">2</div>
+                            </div>
+                            <div class="podium-item rank-1">
+                                <div class="podium-avatar av-gold style-podium-lg">
+                                    <span class="podium-crown">👑</span>
+                                    MH
+                                </div>
+                                <div class="podium-name">minh_hoc99</div>
+                                <div class="podium-score">5,840 điểm</div>
+                                <div class="podium-badge-1">🥇 Hạng 1</div>
+                                <div class="podium-block block-gold">1</div>
+                            </div>
+                            <div class="podium-item rank-3">
+                                <div class="podium-avatar av-teal style-podium-sm">NT</div>
+                                <div class="podium-name">namtran_ielts</div>
+                                <div class="podium-score">3,890 điểm</div>
+                                <div class="podium-badge-3">🥉 Hạng 3</div>
+                                <div class="podium-block block-bronze">3</div>
+                            </div>
+                        </div>
+
+                        <div class="rank-list">
+
+                            <div class="rank-row">
+                                <div class="rank-num">4</div>
+                                <div class="rank-avatar-sm av-rose">HA</div>
+                                <div class="rank-info">
+                                    <div class="rank-uname">hoa_anh2k4</div>
+                                    <div class="rank-meta">Tiếng Anh IELTS · 42 ngày streak</div>
+                                </div>
+                                <div class="rank-right">
+                                    <div class="rank-points">3,610</div>
+                                    <div class="rank-streak"><i class="fa-solid fa-fire"></i> 42</div>
+                                    <div class="rank-change change-up"><i class="fa-solid fa-arrow-up"></i> +2</div>
+                                </div>
+                            </div>
+
+                            <div class="rank-row">
+                                <div class="rank-num">5</div>
+                                <div class="rank-avatar-sm av-amber">PK</div>
+                                <div class="rank-info">
+                                    <div class="rank-uname">phuongkhanh_</div>
+                                    <div class="rank-meta">Toán Cao Cấp · 18 ngày streak</div>
+                                </div>
+                                <div class="rank-right">
+                                    <div class="rank-points">3,420</div>
+                                    <div class="rank-streak"><i class="fa-solid fa-fire"></i> 18</div>
+                                    <div class="rank-change change-same"><i class="fa-solid fa-minus"></i></div>
+                                </div>
+                            </div>
+
+                            <div class="rank-row">
+                                <div class="rank-num">6</div>
+                                <div class="rank-avatar-sm av-sky">BT</div>
+                                <div class="rank-info">
+                                    <div class="rank-uname">bao_tran2k5</div>
+                                    <div class="rank-meta">Hóa Hữu Cơ · 9 ngày streak</div>
+                                </div>
+                                <div class="rank-right">
+                                    <div class="rank-points">3,105</div>
+                                    <div class="rank-streak"><i class="fa-solid fa-fire"></i> 9</div>
+                                    <div class="rank-change change-down"><i class="fa-solid fa-arrow-down"></i> -1</div>
+                                </div>
+                            </div>
+
+                            <div class="rank-row">
+                                <div class="rank-num">7</div>
+                                <div class="rank-avatar-sm av-blue">DL</div>
+                                <div class="rank-info">
+                                    <div class="rank-uname">duc_long_vn</div>
+                                    <div class="rank-meta">Kinh tế Vĩ mô · 27 ngày streak</div>
+                                </div>
+                                <div class="rank-right">
+                                    <div class="rank-points">2,880</div>
+                                    <div class="rank-streak"><i class="fa-solid fa-fire"></i> 27</div>
+                                    <div class="rank-change change-up"><i class="fa-solid fa-arrow-up"></i> +3</div>
+                                </div>
+                            </div>
+
+                            <div class="rank-row">
+                                <div class="rank-num">8</div>
+                                <div class="rank-avatar-sm av-indigo">MY</div>
+                                <div class="rank-info">
+                                    <div class="rank-uname">mai_yen_k65</div>
+                                    <div class="rank-meta">Lý Thuyết Âm Nhạc · 5 ngày streak</div>
+                                </div>
+                                <div class="rank-right">
+                                    <div class="rank-points">2,640</div>
+                                    <div class="rank-streak"><i class="fa-solid fa-fire"></i> 5</div>
+                                    <div class="rank-change change-down"><i class="fa-solid fa-arrow-down"></i> -2</div>
+                                </div>
+                            </div>
+
+                            <div class="rank-row is-me">
+                                <div class="rank-num rank-me-color">14</div>
+                                <div class="rank-avatar-sm av-blue"><i class="fa-solid fa-user icon-me-size"></i></div>
+                                <div class="rank-info">
+                                    <div class="rank-uname rank-me-color">Bạn (Người Dùng)</div>
+                                    <div class="rank-meta">Đa môn học · 1 ngày streak</div>
+                                </div>
+                                <div class="rank-right">
+                                    <div class="rank-points rank-me-color">840</div>
+                                    <div class="rank-streak"><i class="fa-solid fa-fire"></i> 1</div>
+                                    <div class="rank-change change-up"><i class="fa-solid fa-arrow-up"></i> +1</div>
+                                </div>
+                            </div>
+
+                            <div class="rank-row">
+                                <div class="rank-num">15</div>
+                                <div class="rank-avatar-sm av-teal">KH</div>
+                                <div class="rank-info">
+                                    <div class="rank-uname">khanh_hoc24</div>
+                                    <div class="rank-meta">Lịch Sử · 3 ngày streak</div>
+                                </div>
+                                <div class="rank-right">
+                                    <div class="rank-points">820</div>
+                                    <div class="rank-streak"><i class="fa-solid fa-fire"></i> 3</div>
+                                    <div class="rank-change change-same"><i class="fa-solid fa-minus"></i></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="right-col">
+
+                    <div class="my-stats-card">
+                        <div class="my-stats-header">
+                            <div class="my-avatar-lg">ND</div>
+                            <div>
+                                <div class="my-name">Người Dùng</div>
+                                <span class="my-rank-badge"><i class="fa-solid fa-medal"></i> Hạng 14 tuần này</span>
+                            </div>
+                        </div>
+                        <div class="my-stats-grid">
+                            <div class="my-stat-cell">
+                                <div class="cell-val txt-orange">1</div>
+                                <div class="cell-lbl">Ngày streak</div>
+                            </div>
+                            <div class="my-stat-cell">
+                                <div class="cell-val txt-blue">840</div>
+                                <div class="cell-lbl">Điểm tuần</div>
+                            </div>
+                            <div class="my-stat-cell">
+                                <div class="cell-val txt-green">5</div>
+                                <div class="cell-lbl">Thẻ đã thuộc</div>
+                            </div>
+                            <div class="my-stat-cell">
+                                <div class="cell-val cell-purple-color">2</div>
+                                <div class="cell-lbl">Bộ thẻ</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="challenge-card">
+                        <h4><i class="fa-solid fa-flag-checkered challenge-header-icon"></i>Thách thức tuần</h4>
+                        <div class="challenge-item">
+                            <div class="challenge-icon ci-blue">
+                                <i class="fa-solid fa-cards-blank"></i>
+                            </div>
+                            <div class="challenge-info">
+                                <div class="ch-name">Học 200 thẻ trong tuần</div>
+                                <div class="ch-progress-bar">
+                                    <div class="ch-fill fill-blue style-w-22"></div>
+                                </div>
+                            </div>
+                            <div class="challenge-pct">44/200</div>
+                        </div>
+                        <div class="challenge-item">
+                            <div class="challenge-icon ci-orange">
+                                <i class="fa-solid fa-fire"></i>
+                            </div>
+                            <div class="challenge-info">
+                                <div class="ch-name">Duy trì streak 7 ngày</div>
+                                <div class="ch-progress-bar">
+                                    <div class="ch-fill fill-orange style-w-14"></div>
+                                </div>
+                            </div>
+                            <div class="challenge-pct">1/7</div>
+                        </div>
+                        <div class="challenge-item">
+                            <div class="challenge-icon ci-green">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <div class="challenge-info">
+                                <div class="ch-name">Đánh giá 50 thẻ đúng</div>
+                                <div class="ch-progress-bar">
+                                    <div class="ch-fill fill-green style-w-10"></div>
+                                </div>
+                            </div>
+                            <div class="challenge-pct">5/50</div>
+                        </div>
+                    </div>
+
+                    <div class="activity-card">
+                        <div class="activity-card-header">
+                            <i class="fa-solid fa-bolt activity-header-icon"></i>Hoạt động gần đây
+                        </div>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="act-dot act-bg-green"></div>
+                                <div>
+                                    <div class="act-text"><span>minh_hoc99</span> vừa hoàn thành 120 thẻ Toán Cao Cấp</div>
+                                    <div class="act-time">2 phút trước</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="act-dot act-bg-orange"></div>
+                                <div>
+                                    <div class="act-text"><span>hoa_anh2k4</span> đạt streak 42 ngày liên tiếp 🔥</div>
+                                    <div class="act-time">15 phút trước</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="act-dot act-bg-purple"></div>
+                                <div>
+                                    <div class="act-text"><span>namtran_ielts</span> chia sẻ bộ thẻ IELTS Writing Band 8</div>
+                                    <div class="act-time">1 giờ trước</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="act-dot act-bg-blue"></div>
+                                <div>
+                                    <div class="act-text"><span>duc_long_vn</span> leo lên hạng 7 bảng xếp hạng</div>
+                                    <div class="act-time">2 giờ trước</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

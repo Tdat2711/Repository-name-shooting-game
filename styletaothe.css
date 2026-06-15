@@ -1,0 +1,206 @@
+:root{
+    --purple: #7c3aed;
+    --purple-dark: #6d28d9;
+    --ai-purple: #9333ea;
+
+    --text-dark: #1e293b;
+    --text-gray: #64748b;
+
+    --border-color: #e2e8f0;
+
+    --white: #ffffff;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#f8fafc;
+
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-family:'Segoe UI', sans-serif;
+}
+
+.container,
+.choice-container{
+
+    width:700px;
+
+    background:var(--white);
+
+    padding:50px;
+
+    border-radius:30px;
+
+    box-shadow:0 20px 50px rgba(0,0,0,0.08);
+}
+
+h1{
+    text-align:center;
+
+    color:var(--purple-dark);
+
+    margin-bottom:20px;
+}
+
+.description,
+.choice-container p{
+    text-align:center;
+
+    color:var(--text-gray);
+
+    margin-bottom:35px;
+}
+
+.back-btn{
+    text-decoration:none;
+
+    color:var(--purple);
+
+    font-weight:bold;
+
+    display:inline-block;
+
+    margin-bottom:25px;
+}
+
+.choice-btn{
+
+    display:block;
+
+    text-decoration:none;
+
+    background:var(--purple);
+
+    color:white;
+
+    padding:22px;
+
+    border-radius:20px;
+
+    font-size:20px;
+    font-weight:600;
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+    transition:0.3s;
+}
+
+.choice-btn:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 15px 30px rgba(124,58,237,0.25);
+}
+
+.choice-ai{
+    background:var(--ai-purple);
+}
+
+.form-group{
+    margin-bottom:25px;
+}
+
+label{
+    display:block;
+
+    margin-bottom:10px;
+
+    font-weight:600;
+}
+
+input,
+textarea,
+select{
+
+    width:100%;
+
+    padding:16px;
+
+    border:2px solid var(--border-color);
+
+    border-radius:16px;
+
+    outline:none;
+
+    font-size:16px;
+
+    transition:0.3s;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+
+    border-color:var(--purple);
+
+    box-shadow:0 0 10px rgba(124,58,237,0.15);
+}
+
+textarea{
+    resize:vertical;
+}
+
+button{
+
+    width:100%;
+
+    padding:18px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:var(--purple);
+
+    color:white;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+button:hover{
+    opacity:0.9;
+}
+
+.upload-box{
+
+    border:3px dashed #d8b4fe;
+
+    border-radius:25px;
+
+    padding:100px 20px;
+
+    text-align:center;
+
+    margin-bottom:30px;
+}
+
+.upload-box h2{
+    margin-bottom:15px;
+}
+
+@media (max-width:768px){
+
+    .container,
+    .choice-container{
+
+        width:90%;
+
+        padding:35px;
+    }
+
+}

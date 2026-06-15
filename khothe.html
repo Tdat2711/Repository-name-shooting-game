@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kho Thẻ - ForgetMeNot</title>
+  <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="khothe.css" />
+</head>
+<body>
+
+  <div class="app-container">
+    <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-book-icon">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <span class="logo-text">ForgetMeNot</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-menu">
+                <a href="index.html" class="menu-item">
+                    <i class="fa-solid fa-house"></i>
+                    <span class="menu-text">Trang chủ</span>
+                </a>
+                <a href="khothe.html" class="menu-item active">
+    <i class="fa-solid fa-layer-group"></i>
+    <span class="menu-text">Kho thẻ của tôi</span>
+</a>
+                <a href="ontap.html" class="menu-item">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <span class="menu-text">Ôn tập</span>
+                </a>
+                <a href="thongke.html" class="menu-item">
+                    <i class="fa-solid fa-chart-simple"></i>
+                    <span class="menu-text">Thống kê</span>
+                </a>
+                <a href="congdong.html" class="menu-item">
+                    <i class="fa-solid fa-users"></i>
+                    <span class="menu-text">Cộng đồng</span>
+                </a>
+                <a href="caidat.html" class="menu-item">
+                    <i class="fa-solid fa-gear"></i>
+                    <span class="menu-text">Cài đặt</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+
+    <div class="user-avatar">
+        <i class="fa-solid fa-user"></i>
+    </div>
+
+    <div class="user-info">
+        <p class="user-name" id="sidebarUserName"></p>
+        <p class="user-id" id="sidebarUserId"></p>
+    </div>
+
+</div>
+
+<div class="sidebar-motto">
+    <h4>🧠 Học Ít Nhưng</h4>
+    <p>Nhớ Lâu Hơn</p>
+</div>
+        </aside>
+
+    <main class="main-content">
+  <div class="content-header">
+    <div>
+      <h1>Thống Kê Hiệu Suất</h1>
+      <p class="subtitle">Phân tích tiến độ học tập và dữ liệu ghi nhớ của bạn.</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-secondary"><i class="fa-solid fa-calendar-days"></i> 7 Ngày Qua</button>
+      <button class="btn btn-primary"><i class="fa-solid fa-download"></i> Xuất Báo Cáo</button>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card card-purple">
+      <div class="stat-icon"><i class="fa-solid fa-fire"></i></div>
+      <div class="stat-info">
+        <span class="stat-label">Chuỗi Ngày Học</span>
+        <h2 class="stat-value">12 Ngày</h2>
+      </div>
+    </div>
+    
+    <div class="stat-card card-green">
+      <div class="stat-icon"><i class="fa-solid fa-layer-group"></i></div>
+      <div class="stat-info">
+        <span class="stat-label">Tổng Thẻ Đã Thuộc</span>
+        <h2 class="stat-value">428 Thẻ</h2>
+      </div>
+    </div>
+
+    <div class="stat-card card-yellow">
+      <div class="stat-icon"><i class="fa-solid fa-hourglass-half"></i></div>
+      <div class="stat-info">
+        <span class="stat-label">Thời Gian Ôn Tập</span>
+        <h2 class="stat-value">5.8 Giờ</h2>
+      </div>
+    </div>
+
+    <div class="stat-card card-red">
+      <div class="stat-icon"><i class="fa-solid fa-chart-line"></i></div>
+      <div class="stat-info">
+        <span class="stat-label">Tỷ Lệ Chính Xác</span>
+        <h2 class="stat-value">87%</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="charts-section">
+    <div class="chart-box main-chart">
+      <div class="chart-header">
+        <h3><i class="fa-solid fa-chart-bar"></i> Thống kê số thẻ đã học theo tuần</h3>
+        <span class="chart-legend"><span class="dot green"></span> Số lượng thẻ</span>
+      </div>
+      <div class="brutalist-bar-chart">
+        <div class="chart-column">
+          <div class="bar" style="height: 40%" data-value="45"></div>
+          <span class="day-label">T2</span>
+        </div>
+        <div class="chart-column">
+          <div class="bar" style="height: 65%" data-value="78"></div>
+          <span class="day-label">T3</span>
+        </div>
+        <div class="chart-column">
+          <div class="bar" style="height: 85%" data-value="110"></div>
+          <span class="day-label">T4</span>
+        </div>
+        <div class="chart-column">
+          <div class="bar" style="height: 30%" data-value="32"></div>
+          <span class="day-label">T5</span>
+        </div>
+        <div class="chart-column">
+          <div class="bar" style="height: 95%" data-value="142"></div>
+          <span class="day-label">T6</span>
+        </div>
+        <div class="chart-column">
+          <div class="bar" style="height: 55%" data-value="65"></div>
+          <span class="day-label">T7</span>
+        </div>
+        <div class="chart-column">
+          <div class="bar" style="height: 75%" data-value="90"></div>
+          <span class="day-label">CN</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-section">
+    <div class="table-header">
+      <h3><i class="fa-solid fa-table-list"></i> Hiệu suất theo bộ thẻ</h3>
+    </div>
+    <div class="table-container">
+      <table class="brutalist-table">
+        <thead>
+          <tr>
+            <th>Tên Bộ Thẻ</th>
+            <th>Tổng Số Thẻ</th>
+            <th>Tiến Độ Học</th>
+            <th>Độ Chính Xác</th>
+            <th>Trạng Thái</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong class="deck-title">Tiếng Anh Chuyên Ngành IT</strong></td>
+            <td>120 thẻ</td>
+            <td>
+              <div class="table-progress-wrapper">
+                <div class="table-progress-bar"><div class="fill" style="width: 80%"></div></div>
+                <span>80%</span>
+              </div>
+            </td>
+            <td><span class="accuracy-badge high">92%</span></td>
+            <td><span class="status-badge master">Đã Thuộc</span></td>
+          </tr>
+          <tr>
+            <td><strong class="deck-title">C++ Advanced & Data Structures</strong></td>
+            <td>85 thẻ</td>
+            <td>
+              <div class="table-progress-wrapper">
+                <div class="table-progress-bar"><div class="fill" style="width: 45%"></div></div>
+                <span>45%</span>
+              </div>
+            </td>
+            <td><span class="accuracy-badge mid">74%</span></td>
+            <td><span class="status-badge learning">Đang Học</span></td>
+          </tr>
+          <tr>
+            <td><strong class="deck-title">Giải Tích 1 - Cực Trị Hàm Ẩn</strong></td>
+            <td>50 thẻ</td>
+            <td>
+              <div class="table-progress-wrapper">
+                <div class="table-progress-bar"><div class="fill" style="width: 90%"></div></div>
+                <span>90%</span>
+              </div>
+            </td>
+            <td><span class="accuracy-badge low">58%</span></td>
+            <td><span class="status-badge cram">🚨 Nguy Hiểm</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
